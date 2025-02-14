@@ -6,5 +6,5 @@ GlideUp adalah aplikasi pelacak kebiasaan yang membantu Anda membangun rutinitas
 
 ## 👥 Tim Pengembang  
 - **Ketua Kelompok**: [Nama Ketua]  
-- **Anggota 1	**: Tsaniya Khamal Khasanah - 22/503817/TK/55074 
-- **Anggota 2**: [Nama Anggota 2]  
+- **Anggota 1	**:
+- **Anggota 2**:  Tsaniya Khamal Khasanah - 22/503817/TK/55074 
