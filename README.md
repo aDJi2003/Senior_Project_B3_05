@@ -6,5 +6,5 @@ GlideUp adalah aplikasi pelacak kebiasaan yang membantu Anda membangun rutinitas
 
 ## 👥 Tim Pengembang  
 - **Ketua Kelompok**: [Nama Ketua]  
-- **Anggota 1**: [Nama Anggota 1]  
+- **Anggota 1**: Adji Dharmawan Indrianto
 - **Anggota 2**: [Nama Anggota 2]  
