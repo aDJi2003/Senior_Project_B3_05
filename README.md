@@ -7,4 +7,4 @@ GlideUp adalah aplikasi pelacak kebiasaan yang membantu Anda membangun rutinitas
 ## 👥 Tim Pengembang  
 - **Ketua Kelompok**: [Nama Ketua]  
 - **Anggota 1**: Adji Dharmawan Indrianto
-- **Anggota 2**: Steven Namora Roha Saragi Napitu
+- **Anggota 2**: Steven Namora Roha Saragi Napitu - 22/505930/TK/55405
