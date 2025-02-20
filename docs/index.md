@@ -152,7 +152,7 @@ Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image
 | **Konten Edukasi**     | - Pengguna dapat mengakses konten edukasi mengenai pengelolaan sampah dan daur ulang. <br> - Admin atau petugas pengelola sampah harus dapat mengelola konten edukasi (**Manage Educational Content**), seperti menambahkan atau memperbarui informasi yang tersedia di aplikasi. |
 
 5. **Entity Relationship Diagram :**<br><br>
-![Trashify Entity Relationship Diagram](../assets/images/trashify-erd.jpg)
+![Trashify Entity Relationship Diagram](https://raw.githubusercontent.com/aDJi2003/Senior_Project_B3_05/main/assets/images/trashify-erd.jpg)
 
 ### **Low-Fidelity Prototype**  
 - *Landing Page* : <br> <br>
