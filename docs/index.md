@@ -139,7 +139,7 @@ Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image
    - Rumah tangga : Membutuhkan panduan dalam informasi pemilahan sampah dan informasi lokasi tempat daur ulang.
    - UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
 
-3. **Use case diagram :**  
+3. **Use case diagram :**<br> <br>
 ![Trashify Use Case Diagram](../assets/images/trashify-usecase.jpg)
 
 4. **Functional Requirements :**  
@@ -151,7 +151,48 @@ Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image
 | **Manajemen Sampah**   | - Pengguna dapat menyimpan data sampah (**Store Waste**) yang mereka hasilkan. <br> - Sistem harus dapat memproses gambar (**Image Processing**) untuk mengidentifikasi jenis sampah yang diunggah oleh pengguna. |
 | **Konten Edukasi**     | - Pengguna dapat mengakses konten edukasi mengenai pengelolaan sampah dan daur ulang. <br> - Admin atau petugas pengelola sampah harus dapat mengelola konten edukasi (**Manage Educational Content**), seperti menambahkan atau memperbarui informasi yang tersedia di aplikasi. |
 
-5. **Entity Relationship Diagram :**  
-![Trashify Entity Relationship Diagram](.../assets/images/trashify-erd.jpg)
+5. **Entity Relationship Diagram :**<br><br>
+![Trashify Entity Relationship Diagram](../assets/images/trashify-erd.jpg)
 
-6. **Low-Fidelity Prototype**  
+### **Low-Fidelity Prototype**  
+- *Landing Page* : <br> <br>
+  ![Trashify Landing Page](../assets/low-fidelity/landing-page.jpg)
+  <br> <br>
+- *Login Page* :  <br> <br>
+  ![Trashify Login Page](../assets/low-fidelity/login-page.jpg)
+  <br> <br>
+- *Register Page* :  <br> <br>
+  ![Trashify Register Page](../assets/low-fidelity/register-page.jpg)
+  <br> <br>
+- *User Dashboard* :  <br> <br>
+  ![Trashify User Dashboard Page](../assets/low-fidelity/dashboard-user.png)
+  <br> <br>
+- Buang Sampah :  <br> <br>
+  ![Trashify Buang Sampah Page](../assets/low-fidelity/buang-sampah.jpg)
+  <br> <br>
+- *Find Waste-Collector* :  <br> <br>
+  ![Trashify Find Waste-Collector Page](../assets/low-fidelity/location.jpg)
+  <br> <br>
+- *History* :  <br> <br>
+  ![Trashify History Page](../assets/low-fidelity/history.jpg)
+  <br> <br>
+- *Profile* :  <br> <br>
+  ![Trashify Profile Page](../assets/low-fidelity/profile.jpg)
+  <br> <br>
+
+### **Gantt-Chart**
+
+| Kegiatan                                | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12 |
+|-----------------------------------------|----|----|----|----|----|----|----|----|----|----|----|----|
+| Brainstorming                           | █  |    |    |    |    |    |    |    |    |    |    |    |
+| Use case diagram, ERD, Lo-Fi Prototype  |    | █  | █  |    |    |    |    |    |    |    |    |    |
+| Desain UI/UX (Hi-Fi Prototype)          |    |    | █  | █  |    |    |    |    |    |    |    |    |
+| Training model (Image Processing)       |    |    |    | █  | █  |    |    |    |    |    |    |    |
+| Front-End Developing                    |    |    |    |    | █  | █  |    |    |    |    |    |    |
+| Back-End Developing                     |    |    |    |    |    | █  | █  |    |    |    |    |    |
+| Maps API Integration                    |    |    |    |    |    |    | █  | █  |    |    |    |    |
+| Cloud Computing Implementation          |    |    |    |    |    |    |    | █  | █  |    |    |    |
+| Final Integration                       |    |    |    |    |    |    |    |    | █  | █  |    |    |
+| Testing & Validation                    |    |    |    |    |    |    |    |    |    | █  | █  |    |
+| Deployment & Final Testing              |    |    |    |    |    |    |    |    |    |    | █  | █  |
+
