@@ -121,3 +121,78 @@ Individu yang peduli lingkungan, komunitas, dan organisasi yang terlibat dalam p
 
 **Key Competitive Advantage & Unique Value:**  
 Menawarkan akses mudah ke informasi daur ulang melalui kemitraan lokal dan edukasi yang mendorong keterlibatan komunitas, mempermudah pengguna dalam mengimplementasikan praktik daur ulang sehari-hari.
+
+## Metodologi SDLC : 
+Agile Model (Scrum)
+
+
+### Alasan pemilihan metodologi :
+Pengembangan aplikasi sering kali mengalami perubahan kebutuhan atau ide yang akan dituangkan dalam bentuk web app, misalnya penambahan fitur baru sesuai feedback dari user/pengguna. Selain itu, agile juga mementingkan fitur yang memberikan nilai tertinggi untuk pengguna, dimana kebutuhan pengguna menjadi prioritas utama. Terakhir, testing akan dilakukan berkelanjutan setiap saat sehingga masalah dan bug akan diidentifikasi dan diselesaikan dengan cepat.
+
+## Perancangan Tahap 1-3 SDLC :
+
+1. **Tujuan dari Produk :**  
+Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image processing sehingga limbah yang akan dibuang sesuai dengan kategori yang benar. Selain itu, aplikasi ini juga akan memberikan statistic dan analisis kepada pengguna untuk mengukur kebiasaan pembuangan sampah setiap individu serta memberikan saran untuk pengurangan sampah.
+
+2. **Pengguna potensial dari produk dan kebutuhan para pengguna :**
+   - Individu : Bisa mendapatkan tips mengurangi sampah dan menunjukkan statistik kebiasaan buang sampah individu.
+   - Rumah tangga : Membutuhkan panduan dalam informasi pemilahan sampah dan informasi lokasi tempat daur ulang.
+   - UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
+
+3. **Use case diagram :**<br> <br>
+![Trashify Use Case Diagram](../assets/images/trashify-usecase.jpg)
+
+4. **Functional Requirements :**  
+
+| **FR**                 | **Deskripsi** |
+|------------------------|--------------|
+| **User Authentication** | Sistem memungkinkan pengguna untuk melakukan proses registrasi dan login ke aplikasi website. |
+| **Dashboard**          | Sistem melakukan navigasi ke dashboard page sesaat setelah user login ke dalam aplikasi website. Dashboard menampilkan informasi utama seperti edukasi, menyetor sampah, dan lain-lain. |
+| **Manajemen Sampah**   | - Pengguna dapat menyimpan data sampah (**Store Waste**) yang mereka hasilkan. <br> - Sistem harus dapat memproses gambar (**Image Processing**) untuk mengidentifikasi jenis sampah yang diunggah oleh pengguna. |
+| **Konten Edukasi**     | - Pengguna dapat mengakses konten edukasi mengenai pengelolaan sampah dan daur ulang. <br> - Admin atau petugas pengelola sampah harus dapat mengelola konten edukasi (**Manage Educational Content**), seperti menambahkan atau memperbarui informasi yang tersedia di aplikasi. |
+
+5. **Entity Relationship Diagram :**<br><br>
+![Trashify Entity Relationship Diagram](../assets/images/trashify-erd.jpg)
+
+### **Low-Fidelity Prototype**  
+- *Landing Page* : <br> <br>
+  ![Trashify Landing Page](../assets/low-fidelity/landing-page.jpg)
+  <br> <br>
+- *Login Page* :  <br> <br>
+  ![Trashify Login Page](../assets/low-fidelity/login-page.jpg)
+  <br> <br>
+- *Register Page* :  <br> <br>
+  ![Trashify Register Page](../assets/low-fidelity/register-page.jpg)
+  <br> <br>
+- *User Dashboard* :  <br> <br>
+  ![Trashify User Dashboard Page](../assets/low-fidelity/dashboard-user.png)
+  <br> <br>
+- Buang Sampah :  <br> <br>
+  ![Trashify Buang Sampah Page](../assets/low-fidelity/buang-sampah.jpg)
+  <br> <br>
+- *Find Waste-Collector* :  <br> <br>
+  ![Trashify Find Waste-Collector Page](../assets/low-fidelity/location.jpg)
+  <br> <br>
+- *History* :  <br> <br>
+  ![Trashify History Page](../assets/low-fidelity/history.jpg)
+  <br> <br>
+- *Profile* :  <br> <br>
+  ![Trashify Profile Page](../assets/low-fidelity/profile.jpg)
+  <br> <br>
+
+### **Gantt-Chart**
+
+| Kegiatan                                | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12 |
+|-----------------------------------------|----|----|----|----|----|----|----|----|----|----|----|----|
+| Brainstorming                           | █  |    |    |    |    |    |    |    |    |    |    |    |
+| Use case diagram, ERD, Lo-Fi Prototype  |    | █  | █  |    |    |    |    |    |    |    |    |    |
+| Desain UI/UX (Hi-Fi Prototype)          |    |    | █  | █  |    |    |    |    |    |    |    |    |
+| Training model (Image Processing)       |    |    |    | █  | █  |    |    |    |    |    |    |    |
+| Front-End Developing                    |    |    |    |    | █  | █  |    |    |    |    |    |    |
+| Back-End Developing                     |    |    |    |    |    | █  | █  |    |    |    |    |    |
+| Maps API Integration                    |    |    |    |    |    |    | █  | █  |    |    |    |    |
+| Cloud Computing Implementation          |    |    |    |    |    |    |    | █  | █  |    |    |    |
+| Final Integration                       |    |    |    |    |    |    |    |    | █  | █  |    |    |
+| Testing & Validation                    |    |    |    |    |    |    |    |    |    | █  | █  |    |
+| Deployment & Final Testing              |    |    |    |    |    |    |    |    |    |    | █  | █  |
+
