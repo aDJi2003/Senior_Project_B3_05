@@ -121,3 +121,24 @@ Individu yang peduli lingkungan, komunitas, dan organisasi yang terlibat dalam p
 
 **Key Competitive Advantage & Unique Value:**  
 Menawarkan akses mudah ke informasi daur ulang melalui kemitraan lokal dan edukasi yang mendorong keterlibatan komunitas, mempermudah pengguna dalam mengimplementasikan praktik daur ulang sehari-hari.
+
+## Metodologi SDLC : 
+Agile Model (Scrum)
+
+
+### Alasan pemilihan metodologi :
+Pengembangan aplikasi sering kali mengalami perubahan kebutuhan atau ide yang akan dituangkan dalam bentuk web app, misalnya penambahan fitur baru sesuai feedback dari user/pengguna. Selain itu, agile juga mementingkan fitur yang memberikan nilai tertinggi untuk pengguna, dimana kebutuhan pengguna menjadi prioritas utama. Terakhir, testing akan dilakukan berkelanjutan setiap saat sehingga masalah dan bug akan diidentifikasi dan diselesaikan dengan cepat.
+
+## Perancangan Tahap 1-3 SDLC :
+
+1. **Tujuan dari Produk :**
+   Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image processing sehingga limbah yang akan dibuang sesuai dengan kategori yang benar. Selain itu, aplikasi ini juga akan memberikan statistic dan analisis kepada pengguna untuk mengukur kebiasaan pembuangan sampah setiap individu serta memberikan saran untuk pengurangan sampah.
+
+2. **Pengguna potensial dari produk dan kebutuhan para pengguna :**
+   •	Individu : Bisa mendapatkan tips mengurangi sampah dan menunjukkan statistik kebiasaan buang sampah individu.
+   •	Rumah tangga : Membutuhkan panduan dalam informasi pemilahan sampah dan informasi lokasi tempat daur ulang.
+   •	UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
+
+3. **Use case diagram :**
+![Trashify Use Case Diagram](assets/images/trashify-usecase.jpg)
+
