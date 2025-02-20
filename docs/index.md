@@ -131,14 +131,25 @@ Pengembangan aplikasi sering kali mengalami perubahan kebutuhan atau ide yang ak
 
 ## Perancangan Tahap 1-3 SDLC :
 
-1. **Tujuan dari Produk :**
-   Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image processing sehingga limbah yang akan dibuang sesuai dengan kategori yang benar. Selain itu, aplikasi ini juga akan memberikan statistic dan analisis kepada pengguna untuk mengukur kebiasaan pembuangan sampah setiap individu serta memberikan saran untuk pengurangan sampah.
+1. **Tujuan dari Produk :**  
+Tujuan utama dari produk ini adalah untuk mengklasifikasikan sampah dengan image processing sehingga limbah yang akan dibuang sesuai dengan kategori yang benar. Selain itu, aplikasi ini juga akan memberikan statistic dan analisis kepada pengguna untuk mengukur kebiasaan pembuangan sampah setiap individu serta memberikan saran untuk pengurangan sampah.
 
-2. **Pengguna potensial dari produk dan kebutuhan para pengguna :**
-   •	Individu : Bisa mendapatkan tips mengurangi sampah dan menunjukkan statistik kebiasaan buang sampah individu.
-   •	Rumah tangga : Membutuhkan panduan dalam informasi pemilahan sampah dan informasi lokasi tempat daur ulang.
-   •	UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
+3. **Pengguna potensial dari produk dan kebutuhan para pengguna :**
+   - Individu : Bisa mendapatkan tips mengurangi sampah dan menunjukkan statistik kebiasaan buang sampah individu.
+   - Rumah tangga : Membutuhkan panduan dalam informasi pemilahan sampah dan informasi lokasi tempat daur ulang.
+   - UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
 
-3. **Use case diagram :**
+4. **Use case diagram :**  
 ![Trashify Use Case Diagram](../assets/images/trashify-usecase.jpg)
 
+5. **Functional Requirements :**  
+
+
+| **FR**                 | **Deskripsi** |
+|------------------------|--------------|
+| **User Authentication** | Sistem memungkinkan pengguna untuk melakukan proses registrasi dan login ke aplikasi website. |
+| **Dashboard**          | Sistem melakukan navigasi ke dashboard page sesaat setelah user login ke dalam aplikasi website. Dashboard menampilkan informasi utama seperti edukasi, menyetor sampah, dan lain-lain. |
+| **Manajemen Sampah**   | - Pengguna dapat menyimpan data sampah (**Store Waste**) yang mereka hasilkan. <br> - Sistem harus dapat memproses gambar (**Image Processing**) untuk mengidentifikasi jenis sampah yang diunggah oleh pengguna. |
+| **Konten Edukasi**     | - Pengguna dapat mengakses konten edukasi mengenai pengelolaan sampah dan daur ulang. <br> - Admin atau petugas pengelola sampah harus dapat mengelola konten edukasi (**Manage Educational Content**), seperti menambahkan atau memperbarui informasi yang tersedia di aplikasi. |
+
+ 6. **Entity Relationship Diagram :**
