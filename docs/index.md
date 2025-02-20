@@ -140,5 +140,5 @@ Pengembangan aplikasi sering kali mengalami perubahan kebutuhan atau ide yang ak
    •	UMKM/Restoran : Memerlukan solusi dalam pengelolaan limbah makanan dan kemasan serta akses ke mitra daur ulang atau layanan sampah.
 
 3. **Use case diagram :**
-![Trashify Use Case Diagram](assets/images/trashify-usecase.jpg)
+![Trashify Use Case Diagram](../assets/images/trashify-usecase.jpg)
 
