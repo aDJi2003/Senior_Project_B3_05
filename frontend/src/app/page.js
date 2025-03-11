@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "../components/navbar";
+import Image from "next/image";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -71,11 +72,11 @@ export default function Home() {
           ❮
         </button>
 
-        <div className="max-w-5xl flex flex-col md:flex-row items-center">
-          <div className="w-64 h-64 md:w-80 md:h-80 flex-shrink-0 animate-spin-slow">
-            <img src="/earth.png" alt="Earth" className="w-96 h-96" />
+        <div className="max-w-8xl flex flex-col md:flex-row items-center">
+          <div className="w-96 h-96 md:w-[550px] md:h-[550px] flex-shrink-0 animate-spin-slow">
+          <Image src="/earth.png" alt="Earth" width={550} height={550} />
           </div>
-          <div className="md:ml-12 text-center md:text-left max-w-lg px-6">
+          <div className="md:ml-12 text-center md:text-left max-w-2xl px-6">
             <h2 className="text-2xl md:text-3xl font-bold text-black">
               Reduce Waste, Healthy Earth
             </h2>
