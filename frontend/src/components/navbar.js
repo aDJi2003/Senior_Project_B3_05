@@ -57,7 +57,7 @@ const Navbar = () => {
           <Link href="/about" className="hover:text-gray-500">
             About Us
           </Link>
-          <Link href="/services" className="hover:text-gray-500">
+          <Link href="/#our-products" className="hover:text-gray-500" scroll={true}>
             Our Services
           </Link>
           <Link href="/contact" className="hover:text-gray-500">
@@ -84,7 +84,7 @@ const Navbar = () => {
             <Link href="/about" className="hover:text-gray-500" onClick={toggleMenu}>
               About Us
             </Link>
-            <Link href="/services" className="hover:text-gray-500" onClick={toggleMenu}>
+            <Link href="/#our-products" scroll={true} className="hover:text-gray-500" onClick={toggleMenu}>
               Our Services
             </Link>
             <Link href="/contact" className="hover:text-gray-500" onClick={toggleMenu}>
