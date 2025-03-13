@@ -98,7 +98,7 @@ const Page = () => {
             {dashboardCards.map((card, idx) => (
             <Link key={idx} href={card.link}>
                 <button 
-                className='relative rounded-2xl flex justify-center items-center w-[400px] h-[130px] cursor-pointer'
+                className='relative rounded-2xl flex justify-center items-center w-[380px] h-[130px] cursor-pointer'
                 >
                 <Image 
                     src={card.src}
