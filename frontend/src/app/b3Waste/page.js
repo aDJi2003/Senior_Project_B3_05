@@ -1,5 +1,5 @@
 import Footer from '@/components/footer';
-import NavbarBackground from '@/components/navbar-background';
+import NavbarUser from '@/components/navbar-user';
 import React from 'react';
 import Image from 'next/image';
 
@@ -47,7 +47,7 @@ const Section = ({ title, children }) => (
 const Page = () => {
     return (
         <div className='min-h-screen flex flex-col justify-between bg-gray-100 font-poppins'>
-            <NavbarBackground />
+            <NavbarUser />
             <div className='flex flex-col mt-[18vh] mx-[10vw] mb-[5vh]'>
                 <h2 className='text-black text-2xl font-semibold mb-[2vh]'>B3 Waste</h2>
                 <div className='w-full gap-4 flex items-center mb-[3vh]'>
