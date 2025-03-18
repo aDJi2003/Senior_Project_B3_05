@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Footer from '@/components/footer';
-import NavbarBackground from '@/components/navbar-background';
+import NavbarUser from '@/components/navbar-user';
 
 const Page = () => {
   const fileInputRef = useRef(null);
@@ -17,7 +17,7 @@ const Page = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
-      <NavbarBackground />
+      <NavbarUser />
       <div className='flex justify-center items-center mt-[23vh]'>
         <div className='w-[60vw] px-[4vw] py-[5vh] rounded-3xl bg-[#A9C46C80] flex flex-col gap-6 items-center'>
           <h2 className='text-4xl font-bold text-black'>Scan Waste</h2>

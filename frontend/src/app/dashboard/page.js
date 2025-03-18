@@ -1,7 +1,7 @@
 'use client'; 
 
 import Footer from '@/components/footer';
-import NavbarBackground from '@/components/navbar-background';
+import NavbarUser from '@/components/navbar-user';
 import React from 'react';
 import Image from 'next/image';
 import ProgressCard from '@/components/progressCard';
@@ -88,7 +88,7 @@ const Page = () => {
 
   return (
     <div className='min-h-screen flex flex-col justify-between bg-gray-100 font-poppins'>
-      <NavbarBackground />
+      <NavbarUser />
       <div className='flex flex-col mt-[18vh] mb-[5vh] gap-3 mx-[10vw]'>
         <div className='flex flex-col text-black text-2xl font-bold mb-[3vh]'>
           <h2>Hi, Admin.</h2>
