@@ -12,12 +12,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
-// const penggunaRoutes = require("./src/routes/authRoutes");
+//Routes
+const penggunaRoutes = require("./src/routes/authRoutes");
 const sampahRoutes = require("./src/routes/sampahRoutes"); // Keep only this line
 
 console.log(typeof sampahRoutes);
-//app.use("/api/pengguna", penggunaRoutes);
+app.use("/api/pengguna", penggunaRoutes);
 app.use("/api/sampah", sampahRoutes);
 
 // Default route
