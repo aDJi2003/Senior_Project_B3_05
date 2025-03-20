@@ -107,6 +107,12 @@ const ClientMap = () => {
             {nearestTPS.name} <br />
             {Math.round(nearestTPS.distance)} m dari lokasi Anda.
           </p>
+          <button
+            className="bg-blue-500 text-white mt-2 px-2 py-1 rounded-md hover:bg-blue-600"
+            onClick={() => alert('Sampah berhasil dibuang! Silakan Cek Histori')}
+          >
+            Buang sampah di sini
+          </button>
         </div>
       )}
     </div>
