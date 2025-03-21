@@ -1,14 +1,32 @@
 "use client";
-import { useRouter } from "next/navigation"; // Import useRouter
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext"; 
 import NavbarBackground from "../../components/navbar-background";
-import Footer from "../../components/footer"; 
+import Footer from "../../components/footer";
 
 export default function Login() {
-    const router = useRouter(); // Initialize router
+    const { login } = useAuth();
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = (e) => {
-        e.preventDefault(); // Prevent default form submission
-        router.push("/dashboard"); // Navigate to dashboard
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        try {
+            await login(email, password);
+            router.push("/dashboard"); 
+        } catch (err) {
+            setError("Invalid email or password"); 
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -18,13 +36,17 @@ export default function Login() {
                 <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
                     <h2 className="text-2xl font-bold text-center text-black">Login</h2>
 
-                    <form onSubmit={handleLogin}> {/* Wrap inputs in form */}
+                    {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+
+                    <form onSubmit={handleLogin}>
                         <div className="mt-6">
                             <label className="block text-black">Email</label>
                             <input
                                 type="email"
                                 className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                                 placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
 
@@ -33,6 +55,8 @@ export default function Login() {
                                 type="password"
                                 className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                                 placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                         </div>
@@ -44,8 +68,12 @@ export default function Login() {
                             </a>
                         </p>
 
-                        <button type="submit" className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition">
-                            Login
+                        <button
+                            type="submit"
+                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition"
+                            disabled={loading}
+                        >
+                            {loading ? "Logging in..." : "Login"}
                         </button>
                     </form>
                 </div>
