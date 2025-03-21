@@ -23,7 +23,11 @@ export default function Login() {
             await login(email, password);
             router.push("/dashboard"); 
         } catch (err) {
-            setError("Invalid email or password"); 
+            if (err.message === "Network Error" || err.response?.status >= 500) {
+                setError("Unable to connect to the server. Please try again later.");
+            } else {
+                setError("Invalid email or password");
+            }
         } finally {
             setLoading(false);
         }

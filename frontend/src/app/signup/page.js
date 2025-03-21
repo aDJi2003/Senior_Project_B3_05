@@ -36,9 +36,28 @@ export default function Register() {
             setLoading(true);
             await register(formData.name, formData.email, formData.password);
             setSuccess("Registration successful! Redirecting...");
-            setTimeout(() => router.push("/login"), 1000);
+            setTimeout(() => router.push("/login"), 2000);
         } catch (err) {
-            setError(err.message);
+            setError("Registration failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+    
+        try {
+            await signup(email, password);
+            router.push("/dashboard");
+        } catch (err) {
+            if (err.message === "Network Error" || err.response?.status >= 500) {
+                setError("Unable to connect to the server. Please try again later.");
+            } else {
+                setError("Registration failed. Please try again.");
+            }
         } finally {
             setLoading(false);
         }
