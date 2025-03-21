@@ -34,13 +34,17 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password }),
             });
 
-            if (!response.ok) throw new Error("Invalid credentials");
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Invalid credentials");
+            }
 
             const userData = await response.json();
             setUser(userData);
             router.push("/dashboard");
         } catch (error) {
             console.error("Login failed:", error);
+            throw error; // Propagate the error to the caller
         }
     };
 
@@ -52,13 +56,17 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ name, email, password }),
             });
 
-            if (!response.ok) throw new Error("Registration failed");
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Registration failed");
+            }
 
             const userData = await response.json();
             setUser(userData);
             router.push("/dashboard");
         } catch (error) {
             console.error("Registration failed:", error);
+            throw error; // Propagate the error to the caller
         }
     };
 
