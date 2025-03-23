@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import ProgressCard from '@/components/progressCard';
 import Link from 'next/link';
+import { useAuth } from "@/context/AuthContext";
 
 import {
   Chart as ChartJS,
@@ -28,6 +29,7 @@ ChartJS.register(
 );
 
 const Page = () => {
+  const { user } = useAuth();
     const dashboardCards = [
         {
           src: '/organic_dashboard.png',
@@ -91,8 +93,8 @@ const Page = () => {
       <NavbarUser />
       <div className='flex flex-col mt-[18vh] mb-[5vh] gap-3 mx-[10vw]'>
         <div className='flex flex-col text-black text-2xl font-bold mb-[3vh]'>
-          <h2>Hi, Admin.</h2>
-          <h2>Apakah sudah membuang sampah sesuai dengan tempatnya hari ini ?</h2>
+          <h2>Hi, {user ? user.name : "Loading..."}.</h2>
+          <h2>Have you thrown away your trash in the right place today?</h2>
         </div>
         <div className='flex gap-5 items-center justify-between mb-[3vh]'>
             {dashboardCards.map((card, idx) => (
