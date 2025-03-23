@@ -1,17 +1,20 @@
-import { NextResponse } from "next/server";
-
-export async function GET() {
+export const fetchUserProfile = async (token) => {
   try {
-    const response = await fetch("http://localhost:8080/api/user", {
+    const response = await fetch("http://localhost:8080/api/pengguna/me", {
       method: "GET",
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
-    if (!response.ok) throw new Error("User not authenticated");
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
 
-    const user = await response.json();
-    return NextResponse.json(user, { status: 200 });
+    const data = await response.json();
+    return data;
   } catch (error) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    console.error("Error fetching user profile:", error);
+    return null;
   }
-}
+};
