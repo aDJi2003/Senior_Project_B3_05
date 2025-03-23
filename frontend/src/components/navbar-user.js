@@ -2,9 +2,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 
 const NavbarUser = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -57,7 +59,7 @@ const NavbarUser = () => {
 
         {/* Profile Section */}
         <div className="hidden md:flex items-center space-x-2">
-          <span className="text-[#F4FFC3] font-bold text-lg">Admin</span>
+          <span className="text-[#F4FFC3] font-bold text-lg">{user ? user.name : "Loading..."}</span>
           <Link href="/profile">
             <Image src="/profile.png" alt="Profile" width={40} height={40} className="rounded-full cursor-pointer" />
           </Link>
@@ -84,7 +86,7 @@ const NavbarUser = () => {
             {/* Profile in Mobile Menu */}
             <div className="flex flex-col items-center mt-6 space-y-2">
               <Image src="/profile.png" alt="Profile" width={60} height={60} className="rounded-full" />
-              <span className="text-[#F4FFC3] text-xl font-semibold">Admin</span>
+              <span className="text-[#F4FFC3] text-xl font-semibold">{user ? user.name : "Loading..."}</span>
               <Link href="/profile" className="text-white hover:text-gray-300" onClick={toggleMenu}>
                 View Profile
               </Link>
