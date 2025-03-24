@@ -42,9 +42,25 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         const userData = await authLogin(email, password);
-        setUser(userData);
+        
+        if (userData?.token) {
+            localStorage.setItem("token", userData.token); // Store token
+            const response = await fetch("http://localhost:8080/api/pengguna/me", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${userData.token}`,
+                },
+            });
+    
+            if (response.ok) {
+                const fetchedUser = await response.json();
+                setUser(fetchedUser); 
+            }
+        }
+    
         router.push("/dashboard");
     };
+    
 
     const register = async (name, email, password) => {
         const userData = await authRegister(name, email, password);
