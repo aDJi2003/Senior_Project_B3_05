@@ -24,7 +24,7 @@ const authController = {
       }
 
       const user = await penggunaModel.login(email, password);
-      const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
+      const token = jwt.sign({ name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
       res.status(200).json({ message: "Login successful", token });
     } catch (error) {
@@ -34,19 +34,21 @@ const authController = {
 
   getUserName: async (req, res) => {
     try {
-      const userEmail = req.user.email; 
+        const userEmail = req.user.email; 
 
-      const result = await penggunaModel.getUserNameByEmail(userEmail);
+        const result = await penggunaModel.getUserNameByEmail(userEmail);
 
-      if (!result) {
-        return res.status(404).json({ error: "User not found" });
-      }
+        if (!result) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-      res.status(200).json({ name: result.name });
+        // Return both name and email
+        res.status(200).json({ name: result.name, email: result.email });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
   }
+
 
 };
 

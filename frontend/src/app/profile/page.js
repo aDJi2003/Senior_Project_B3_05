@@ -1,13 +1,27 @@
 "use client";
 
-
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import NavbarUser from "@/components/navbar-user";
 import Footer from "@/components/footer";
+import { useAuth } from "@/context/AuthContext";
 
 const ProfilePage = () => {
+  const { user, loading, logout } = useAuth();
   const router = useRouter();
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
 
   return (
     <>
@@ -24,12 +38,12 @@ const ProfilePage = () => {
           />
           <div className="text-lg text-gray-700 w-full text-left">
             <p className="font-semibold">Full Name</p>
-            <p className="mb-3">Admin Admin</p>
+            <p className="mb-3">{user?.name || "No Name"}</p>
             <p className="font-semibold">Email</p>
-            <p className="mb-6">Admin@gmail.com</p>
+            <p className="mb-6">{user?.email || "No Email"}</p>
           </div>
           <button
-            onClick={() => router.push("/login")}
+            onClick={logout}
             className="w-full bg-[#F4FFC3] text-gray-800 py-2 rounded-lg font-semibold hover:bg-[#E8F7A0] transition"
           >
             Log Out

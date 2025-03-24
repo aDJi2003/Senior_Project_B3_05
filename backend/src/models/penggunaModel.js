@@ -45,15 +45,18 @@ const penggunaModel = {
 
   getUserNameByEmail: async (email) => {
     try {
-      const result = await pool.query("SELECT name FROM Pengguna WHERE email = $1", [email]);
+        const result = await pool.query(
+            "SELECT name, email FROM Pengguna WHERE email = $1", 
+            [email]
+        );
 
-      if (result.rows.length === 0) {
-        return null;
-      }
+        if (result.rows.length === 0) {
+            return null;
+        }
 
-      return result.rows[0];
+        return result.rows[0]; // Ensure both name and email are returned
     } catch (error) {
-      throw error;
+        throw error;
     }
   }
 };
