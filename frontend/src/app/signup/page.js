@@ -1,5 +1,6 @@
 "use client";
-import { useState, useContext } from "react";
+
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import NavbarBackground from "../../components/navbar-background";
@@ -17,6 +18,12 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+
+    const nameInputRef = useRef(null);
+
+    useEffect(() => {
+        nameInputRef.current?.focus();
+    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -44,29 +51,10 @@ export default function Register() {
         }
     };
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError("");
-    
-        try {
-            await signup(email, password);
-            router.push("/dashboard");
-        } catch (err) {
-            if (err.message === "Network Error" || err.response?.status >= 500) {
-                setError("Unable to connect to the server. Please try again later.");
-            } else {
-                setError("Registration failed. Please try again.");
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
-
     return (
         <div className="min-h-screen flex flex-col justify-between bg-gray-100">
             <NavbarBackground />
-            <div className="flex flex-1 justify-center items-center">
+            <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
                 <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
                     <h2 className="text-2xl font-bold text-center text-black">Register</h2>
 
@@ -77,6 +65,7 @@ export default function Register() {
                         <div className="mt-6">
                             <label className="block text-black">Name</label>
                             <input
+                                ref={nameInputRef}
                                 type="text"
                                 name="name"
                                 value={formData.name}
@@ -129,7 +118,7 @@ export default function Register() {
 
                         <button 
                             type="submit" 
-                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition"
+                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer"
                             disabled={loading}
                         >
                             {loading ? "Registering..." : "Register"}

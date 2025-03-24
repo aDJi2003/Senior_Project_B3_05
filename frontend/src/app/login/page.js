@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext"; 
 import NavbarBackground from "../../components/navbar-background";
@@ -13,6 +13,12 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const emailInputRef = useRef(null);
+
+    useEffect(() => {
+        emailInputRef.current?.focus();
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -36,7 +42,7 @@ export default function Login() {
     return (
         <div className="min-h-screen flex flex-col justify-between bg-gray-100">
             <NavbarBackground />
-            <div className="flex flex-1 justify-center items-center">
+            <div className="flex flex-1 justify-center items-center mt-[12vh]">
                 <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
                     <h2 className="text-2xl font-bold text-center text-black">Login</h2>
 
@@ -46,6 +52,7 @@ export default function Login() {
                         <div className="mt-6">
                             <label className="block text-black">Email</label>
                             <input
+                                ref={emailInputRef}
                                 type="email"
                                 className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                                 placeholder="Enter your email"
@@ -66,7 +73,7 @@ export default function Login() {
                         </div>
 
                         <p className="text-center text-black mt-4">
-                            Don't have an account yet?{" "}
+                            {"Don't have an account yet? "}
                             <a href="/signup" className="text-blue-600 font-semibold italic">
                                 Register here
                             </a>
@@ -74,7 +81,7 @@ export default function Login() {
 
                         <button
                             type="submit"
-                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition"
+                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer"
                             disabled={loading}
                         >
                             {loading ? "Logging in..." : "Login"}
