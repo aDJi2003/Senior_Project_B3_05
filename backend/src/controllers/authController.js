@@ -24,7 +24,13 @@ const authController = {
       }
 
       const user = await penggunaModel.login(email, password);
-      const token = jwt.sign({ name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+      console.log("User found during login:", user); 
+
+      const token = jwt.sign(
+        { name: user.name, email: user.email }, 
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
 
       res.status(200).json({ message: "Login successful", token });
     } catch (error) {
