@@ -12,18 +12,32 @@ const sampahModel = {
     }
   },
 
-  // Mengambil data sampah berdasarkan ID
   getById: async (id) => {
     try {
       const result = await pool.query("SELECT * FROM Sampah WHERE ID_sampah = $1", [id]);
-      return result.rows[0] || null; // Kembalikan null jika tidak ditemukan
+      return result.rows[0] || null;
     } catch (error) {
       console.error("Error fetching sampah by ID:", error);
       throw error;
     }
   },
 
-  // Membuat data sampah baru
+  getByEmail: async (email) => {
+    try {
+      const result = await pool.query(
+        `SELECT s.* 
+         FROM Sampah s
+         JOIN Pengguna p ON s.ID_pengguna = p.ID_pengguna
+         WHERE p.email = $1`,
+        [email]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error("Error fetching sampah by email:", error);
+      throw error;
+    }
+  },
+
   createSampah: async (ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) => {
     try {
       // Validasi Type_of_waste
