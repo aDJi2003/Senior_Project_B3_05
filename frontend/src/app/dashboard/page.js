@@ -59,10 +59,10 @@ const Page = () => {
   ];
 
   const totalWasteData = {
-    labels: ['Organik', 'Anorganik', 'B3'],
+    labels: ['Organic', 'Inorganic', 'B3'],
     datasets: [
       {
-        label: 'Total Sampah (kg)',
+        label: 'Total Waste (kg)',
         data: [3.5, 2.0, 3.0],
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
@@ -78,7 +78,7 @@ const Page = () => {
     plugins: {
       title: {
         display: true,
-        text: 'Total Sampah',
+        text: 'Total Waste Disposal',
       },
     },
     scales: {
@@ -119,10 +119,10 @@ const Page = () => {
         <div className='flex items-center justify-between gap-8 mb-[3vh]'>
           <div className='bg-white p-4 rounded-lg shadow w-1/2'>
             <Bar data={totalWasteData} options={totalWasteOptions} />
-            <p className='text-center mt-2 font-semibold text-black'>Statistik Pembuangan Sampah</p>
+            <p className='text-center mt-2 font-semibold text-black'>Waste Disposal Statistics</p>
           </div>
           <div className='bg-white px-4 py-7 rounded-lg shadow w-1/2 overflow-y-auto'>
-            <p className='text-center font-semibold mb-4 -py-3 text-black'>Tabel Histori Pembuangan Sampah</p>
+            <p className='text-center font-semibold mb-4 -py-3 text-black'>Waste Disposal History Table</p>
             <table className='min-w-full text-left text-sm text-gray-500 h-[20vh]'>
               <thead className='text-xs text-gray-700 uppercase bg-gray-200 sticky top-0 z-10'>
                 <tr>

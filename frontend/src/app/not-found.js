@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Footer from "@/components/footer";
 import Link from "next/link";
-import NavbarUser from "@/components/navbar-user";
+import NavbarBackground from "@/components/navbar-background";
 
 export default function NotFound() {
   return (
     <div className="flex flex-col min-h-screen">
-      <NavbarUser />
+      <NavbarBackground />
       <div className="flex-1 bg-white flex items-center justify-center mt-[12vh]">
         <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 flex justify-center">
