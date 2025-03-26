@@ -3,6 +3,7 @@ import Footer from '@/components/footer';
 import NavbarUser from '@/components/navbar-user';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const images = ['/inorganic_waste.png', '/inorganic_waste_1.jpg', '/inorganic_waste_2.jpg'];
@@ -31,12 +32,30 @@ const Section = ({ title, children }) => (
 
 const Page = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const router = useRouter();
 
     return (
         <div className='min-h-screen flex flex-col bg-gray-50 font-poppins'>
             <NavbarUser />
             <div className='flex flex-col mt-[12vh] mx-auto max-w-5xl p-6'>
-                <h2 className='text-black text-4xl font-bold text-center mb-8'>Inorganic Waste</h2>
+                <div className="flex items-center justify-between mb-8">
+                    <span 
+                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition"
+                        onClick={() => router.push('/b3Waste')}
+                    >
+                        &lt; B3 Waste
+                    </span>
+
+                    <h2 className='text-black text-4xl font-bold text-center'>Inorganic Waste</h2>
+
+                    <span 
+                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition"
+                        onClick={() => router.push('/organicWaste')}
+                    >
+                        Organic Waste &gt;
+                    </span>
+                </div>
+
                 <div className='grid grid-cols-3 gap-4 mb-10'>
                     {images.map((src, index) => (
                         <div 
