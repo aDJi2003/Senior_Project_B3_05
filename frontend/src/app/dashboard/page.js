@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 
 import Footer from '@/components/footer';
 import NavbarUser from '@/components/navbar-user';
@@ -7,6 +7,7 @@ import Image from 'next/image';
 import ProgressCard from '@/components/progressCard';
 import Link from 'next/link';
 import { useAuth } from "@/context/AuthContext";
+import FunFactCard from '@/components/funFactCard';
 
 import {
   Chart as ChartJS,
@@ -30,32 +31,26 @@ ChartJS.register(
 
 const Page = () => {
   const { user } = useAuth();
-    const dashboardCards = [
-        {
-          src: '/organic_dashboard.png',
-          alt: 'organic_dashboard',
-          label: 'Organic',
-          link: '/organicWaste'
-        },
-        {
-          src: '/inorganic_dashboard.png',
-          alt: 'inorganic_dashboard',
-          label: 'Inorganic',
-          link: '/inorganicWaste'
-        },
-        {
-          src: '/b3_dashboard.png',
-          alt: 'b3_dashboard',
-          label: 'B3 Waste',
-          link: '/b3Waste'
-        },
-    ];
 
-  const tableRows = [
-    { date: '6 Feb 2025', type: 'Organic', weight: '4 Kg' },
-    { date: '6 Feb 2025', type: 'Inorganic', weight: '6 Kg' },
-    { date: '6 Feb 2025', type: 'B3', weight: '3 Kg' },
-    { date: '7 Feb 2025', type: 'Organic', weight: '2 Kg' },
+  const dashboardCards = [
+    {
+      src: '/organic_dashboard.png',
+      alt: 'organic_dashboard',
+      label: 'Organic',
+      link: '/organicWaste',
+    },
+    {
+      src: '/inorganic_dashboard.png',
+      alt: 'inorganic_dashboard',
+      label: 'Inorganic',
+      link: '/inorganicWaste',
+    },
+    {
+      src: '/b3_dashboard.png',
+      alt: 'b3_dashboard',
+      label: 'B3 Waste',
+      link: '/b3Waste',
+    },
   ];
 
   const totalWasteData = {
@@ -75,6 +70,7 @@ const Page = () => {
 
   const totalWasteOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
@@ -89,76 +85,59 @@ const Page = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col justify-between bg-gray-100 font-poppins'>
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
       <NavbarUser />
-      <div className='flex flex-col mt-[18vh] mb-[5vh] gap-3 mx-[10vw]'>
-        <div className='flex flex-col text-black text-2xl font-bold mb-[3vh]'>
+      <div className="flex flex-col mt-[18vh] mb-[5vh] gap-3 mx-[10vw]">
+        <div className="flex flex-col text-black text-2xl font-bold mb-[3vh]">
           <h2>Hi, {user ? user.name : "Loading..."}.</h2>
           <h2>Have you thrown away your trash in the right place today?</h2>
         </div>
-        <div className='flex gap-5 items-center justify-between mb-[3vh]'>
-            {dashboardCards.map((card, idx) => (
+        <div className="flex flex-wrap gap-5 items-center justify-between mb-[3vh]">
+          {dashboardCards.map((card, idx) => (
             <Link key={idx} href={card.link}>
-                <button 
-                className='relative rounded-2xl flex justify-center items-center w-[380px] h-[130px] cursor-pointer'
-                >
-                <Image 
-                    src={card.src}
-                    alt={card.alt}
-                    width={400}
-                    height={130}
-                    className='w-full h-full rounded-2xl'
+              <button className="relative rounded-2xl flex justify-center items-center w-[380px] h-[130px] cursor-pointer">
+                <Image
+                  src={card.src}
+                  alt={card.alt}
+                  width={400}
+                  height={130}
+                  className="w-full h-full rounded-2xl"
                 />
-                <p className='text-white font-semibold text-xl absolute z-1'>
-                    {card.label}
+                <p className="text-white font-semibold text-xl absolute z-10">
+                  {card.label}
                 </p>
-                </button>
+              </button>
             </Link>
-            ))}
+          ))}
         </div>
-        <div className='flex items-center justify-between gap-8 mb-[3vh]'>
-          <div className='bg-white p-4 rounded-lg shadow w-1/2'>
-            <Bar data={totalWasteData} options={totalWasteOptions} />
-            <p className='text-center mt-2 font-semibold text-black'>Waste Disposal Statistics</p>
+        <div className="flex flex-col lg:flex-row gap-8 mb-[3vh] items-stretch h-[500px]">
+          <div className="bg-white p-4 rounded-lg shadow w-[800px] flex flex-col">
+            <div className="flex-1 relative">
+              <Bar data={totalWasteData} options={totalWasteOptions} />
+            </div>
+            <p className="text-center mt-2 font-semibold text-black">
+              Waste Disposal Statistics
+            </p>
           </div>
-          <div className='bg-white px-4 py-7 rounded-lg shadow w-1/2 overflow-y-auto'>
-            <p className='text-center font-semibold mb-4 -py-3 text-black'>Waste Disposal History Table</p>
-            <table className='min-w-full text-left text-sm text-gray-500 h-[20vh]'>
-              <thead className='text-xs text-gray-700 uppercase bg-gray-200 sticky top-0 z-10'>
-                <tr>
-                  <th scope='col' className='px-6 py-3'>Date</th>
-                  <th scope='col' className='px-6 py-3'>Type</th>
-                  <th scope='col' className='px-6 py-3'>Weight</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableRows.map((row, idx) => (
-                  <tr key={idx} className='bg-white border-b'>
-                    <td className='px-6 py-4'>{row.date}</td>
-                    <td className='px-6 py-4'>{row.type}</td>
-                    <td className='px-6 py-4'>{row.weight}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="flex flex-col gap-4 w-[380px]">
+            <div className="flex-1">
+              <ProgressCard
+                title="Weekly Progress"
+                weight="0.0/10 Kg"
+                information="This milestone will reset within 7 days"
+              />
+            </div>
+            <div className="flex-1">
+              <ProgressCard
+                title="Most Frequent Waste"
+                weight="Organic"
+                information="This milestone will reset within 7 days"
+              />
+            </div>
+            <div className="flex-1">
+              <FunFactCard />
+            </div>
           </div>
-        </div>
-        <div className='flex items-center justify-between gap-4'>
-          <ProgressCard 
-            title='Weekly Progress'
-            weight='0.0/10 Kg'
-            information='This milestone will reset within 7 days'
-          />
-          <ProgressCard 
-            title='Most Frequent Waste'
-            weight='Organic'
-            information='This milestone will reset within 7 days'
-          />
-          <ProgressCard 
-            title='Weekly Progress'
-            weight='0.0/10 Kg'
-            information='This milestone will reset within 7 days'
-          />
         </div>
       </div>
       <Footer />
