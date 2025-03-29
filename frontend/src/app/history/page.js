@@ -16,7 +16,7 @@ const Page = () => {
             setError(null);
             try {
                 const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:8080/api/sampah/by-email", {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sampah/by-email`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setTableRows(response.data);

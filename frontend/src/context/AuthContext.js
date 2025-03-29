@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             try {
-                const response = await fetch("http://localhost:8080/api/pengguna/me", {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/me`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         
         if (userData?.token) {
             localStorage.setItem("token", userData.token); // Store token
-            const response = await fetch("http://localhost:8080/api/pengguna/me", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/me`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${userData.token}`,
