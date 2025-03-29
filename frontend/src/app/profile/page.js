@@ -5,10 +5,17 @@ import { useRouter } from "next/navigation";
 import NavbarUser from "@/components/navbar-user";
 import Footer from "@/components/footer";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 const ProfilePage = () => {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [loading, user, router]);
 
   if (loading) {
     return (
@@ -19,7 +26,6 @@ const ProfilePage = () => {
   }
 
   if (!user) {
-    router.push("/login");
     return null;
   }
 
