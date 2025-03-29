@@ -4,7 +4,7 @@ export async function POST(req) {
     try {
         const { name, email, password } = await req.json();
 
-        const response = await fetch("http://localhost:8080/api/pengguna/register", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, email, password }),
