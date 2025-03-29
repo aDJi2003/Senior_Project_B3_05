@@ -5,7 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 // Perbaiki rute
 router.get("/", sampahController.getAllSampah);
-router.get("/by-email", authMiddleware, sampahController.getSampahByEmail); 
+router.get("/by-email", authMiddleware, sampahController.getSampahByEmail);
 router.get("/:id", sampahController.getSampahById);
 router.post("/create", sampahController.createSampah);
 router.put("/:id", sampahController.updateSampah);

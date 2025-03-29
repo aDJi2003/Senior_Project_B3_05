@@ -24,17 +24,17 @@ const sampahModel = {
 
   getByEmail: async (email) => {
     try {
-      const result = await pool.query(
-        `SELECT s.* 
-         FROM Sampah s
-         JOIN Pengguna p ON s.ID_pengguna = p.ID_pengguna
-         WHERE p.email = $1`,
-        [email]
-      );
-      return result.rows;
+        const result = await pool.query(
+            `SELECT s.* 
+            FROM Sampah s
+            JOIN Pengguna p ON s.ID_pengguna = p.ID_pengguna
+            WHERE p.email = $1`,
+            [email]
+        );
+        return result.rows;
     } catch (error) {
-      console.error("Error fetching sampah by email:", error);
-      throw error;
+        console.error("Error fetching sampah by email:", error);
+        throw error;
     }
   },
 
