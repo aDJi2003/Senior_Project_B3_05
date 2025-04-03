@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-bebas-neue: 'Bebas Neue', sans-serif; /* Ensure Bebas Neue is defined */
+  --font-poppins: 'Poppins', sans-serif;
 }
 
 @theme inline {
@@ -35,5 +37,9 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins); 
+}
+
+.font-bebas-neue {
+  font-family: var(--font-bebas-neue);
 }
