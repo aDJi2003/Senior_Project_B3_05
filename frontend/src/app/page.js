@@ -24,9 +24,9 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const texts = [
-    "Reduce plastic waste and protect marine life.",
-    "Recycling helps conserve natural resources.",
-    "Composting reduces landfill waste and benefits soil health.",
+    "Reducing waste starts with our daily habits. By using reusable bags, bottles, and containers, we can cut down on single-use plastics. Avoiding unnecessary packaging and buying only what we need also helps minimize waste. Small changes in lifestyle can make a big difference for the environment.",
+    "Loving the Earth means taking responsibility for how we treat our planet. Simple acts like planting trees, saving water, and conserving energy show our care. When we protect nature, we ensure a better future for the next generations. The Earth gives us life—let’s give it love in return.",
+    "Sorting waste into the right categories—organic, inorganic, and hazardous—is essential for effective recycling. This helps reduce pollution and ensures that recyclable materials can be reused. Organic waste can be composted, while plastics, metals, and glass go to recycling centers. Proper waste sorting is a small step with a big environmental impact.",
   ];
 
   const handleNext = () => {
@@ -179,82 +179,7 @@ export default function Home() {
         </button>
       </section>
 
-      {/* Section 4: Products & Services */}
-      <section id="our-products" className="py-20 bg-white text-center text-black">
-        <h2 className="text-3xl md:text-5xl font-bold text-black mb-16">
-          Our Products & Services
-        </h2>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
-          {/* Product 1 */}
-          <motion.div
-            className="flex flex-col items-center"
-            custom={0.2}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={productVariants}
-          >
-            <Image
-              src="/product1.png"
-              alt="Smart Waste Management System"
-              width={250}
-              height={250}
-            />
-            <h3 className="text-xl font-semibold mt-4">
-              Smart Waste Management System
-            </h3>
-            <p className="text-gray-600 mt-2">
-              A web-based platform to optimize waste management processes.
-            </p>
-          </motion.div>
-
-          {/* Product 2 */}
-          <motion.div
-            className="flex flex-col items-center"
-            custom={0.4}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={productVariants}
-          >
-            <Image
-              src="/product2.png"
-              alt="Waste Tracking & Analytics Dashboard"
-              width={251}
-              height={251}
-            />
-            <h3 className="text-xl font-semibold mt-4">
-              Waste Tracking & Analytics Dashboard
-            </h3>
-            <p className="text-gray-600 mt-2">
-              A web & AI-based platform to detect and optimize waste management.
-            </p>
-          </motion.div>
-
-          {/* Product 3 */}
-          <motion.div
-            className="flex flex-col items-center"
-            custom={0.6}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={productVariants}
-          >
-            <Image
-              src="/product3.png"
-              alt="Waste Classification AI"
-              width={342}
-              height={300}
-            />
-            <h3 className="text-xl font-semibold mt-4">
-              Waste Classification AI
-            </h3>
-            <p className="text-gray-600 mt-2">
-              A web-based platform for optimizing waste classification using AI.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      
       <Footer />
       <ChatWidget />
     </div>
