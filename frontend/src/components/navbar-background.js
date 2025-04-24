@@ -42,7 +42,7 @@ const NavbarBackground = () => {
           <Link href="/about" className="hover:text-gray-500">
             About Us
           </Link>
-          <Link href="/#our-products" scroll={true} className="hover:text-gray-500">
+          <Link href="/our-product" scroll={true} className="hover:text-gray-500">
             Our Services
           </Link>
           <Link href="/contact" className="hover:text-gray-500">
@@ -67,7 +67,7 @@ const NavbarBackground = () => {
             <Link href="/about" className="hover:text-gray-500" onClick={toggleMenu}>
               About Us
             </Link>
-            <Link href="/#our-products" scroll={true} className="hover:text-gray-500" onClick={toggleMenu}>
+            <Link href="/our-product" scroll={true} className="hover:text-gray-500" onClick={toggleMenu}>
               Our Services
             </Link>
             <Link href="/contact" className="hover:text-gray-500" onClick={toggleMenu}>
