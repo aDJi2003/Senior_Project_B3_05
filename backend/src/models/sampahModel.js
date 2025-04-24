@@ -12,9 +12,9 @@ const sampahModel = {
     }
   },
 
-  getById: async (id) => {
+  getByUserId: async (id) => {
     try {
-      const result = await pool.query("SELECT * FROM Sampah WHERE ID_sampah = $1", [id]);
+      const result = await pool.query("SELECT * FROM Sampah WHERE ID_pengguna = $1", [ID_pengguna]);
       return result.rows[0] || null;
     } catch (error) {
       console.error("Error fetching sampah by ID:", error);

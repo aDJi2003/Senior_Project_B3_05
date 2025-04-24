@@ -9,49 +9,26 @@ const getAllSampah = async (req, res) => {
   }
 };
 
-const getSampahById = async (req, res) => {
+const getSampahByUserId = async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
+    const userId = req.user.ID_pengguna; // Ambil ID pengguna dari sesi atau token
+    console.log("Mengambil data sampah untuk pengguna ID:", userId);
 
-    // Validate ID
-    if (isNaN(id)) {
-      console.log("Invalid ID parameter:", req.params.id); 
-      return res.status(400).json({ error: "Invalid ID parameter" });
-    }
+    const data = await Sampah.getByUserId(userId);
 
-    console.log("Mengambil data dengan ID:", id);
-
-    const data = await Sampah.getById(id);
-
-    if (!data) {
-      return res.status(404).json({ error: "Sampah not found" });
+    if (!data || data.length === 0) {
+      return res.status(404).json({ error: "Sampah not found for this user" });
     }
 
     res.status(200).json(data);
   } catch (error) {
-    console.error("Error di backend:", error); // Lihat error di terminal
+    console.error("Error di backend:", error);
     res.status(500).json({ error: error.message || "Failed to fetch data" });
   }
 };
 
-const getSampahByEmail = async (req, res) => {
-  try {
-    if (!req.user || !req.user.email) {
-      return res.status(400).json({ error: "Invalid or missing email in request" });
-    }
 
-    const email = req.user.email;
-    const data = await Sampah.getByEmail(email);
 
-    if (!data.length) {
-      return res.status(404).json({ error: "No sampah found for this user" });
-    }
-
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch sampah by email" });
-  }
-};
 
 const createSampah = async (req, res) => {
   try {
@@ -72,6 +49,8 @@ const createSampah = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
+
+
 
 const updateSampah = async (req, res) => {
   try {
@@ -97,6 +76,7 @@ const updateSampah = async (req, res) => {
   }
 };
 
+
 const deleteSampah = async (req, res) => {
   try {
     await Sampah.deleteSampah(req.params.id);
@@ -108,9 +88,8 @@ const deleteSampah = async (req, res) => {
 
 module.exports = { 
   getAllSampah, 
-  getSampahById, 
+  getSampahByUserId, 
   createSampah, 
   updateSampah, 
-  deleteSampah, 
-  getSampahByEmail 
+  deleteSampah,
 };

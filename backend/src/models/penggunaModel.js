@@ -1,19 +1,28 @@
 const pool = require("../config/database");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid"); // Import UUID generator
 
 const penggunaModel = {
-  register: async (name, email, password) => {
+  register: async (name, email, password, profileImageURL) => {
     try {
+      // Cek apakah email sudah ada di database
       const userExists = await pool.query("SELECT * FROM Pengguna WHERE email = $1", [email]);
       if (userExists.rows.length > 0) {
         throw new Error("Email already exists");
       }
 
+      // Generate UUID sebagai ID_pengguna
+      const idPengguna = uuidv4();
+
+      // Hash password sebelum disimpan
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // Insert data ke database
       const result = await pool.query(
-        `INSERT INTO Pengguna (name, email, password) VALUES ($1, $2, $3) RETURNING ID_pengguna, name, email`,
-        [name, email, hashedPassword]
+        `INSERT INTO Pengguna (ID_pengguna, name, email, password, profile_image) 
+         VALUES ($1, $2, $3, $4, $5) 
+         RETURNING ID_pengguna, name, email, profile_image`,
+        [idPengguna, name, email, hashedPassword, profileImageURL]
       );
 
       return result.rows[0];
@@ -32,12 +41,13 @@ const penggunaModel = {
 
       const user = result.rows[0];
 
+      // Cek apakah password cocok
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         throw new Error("Invalid credentials");
       }
 
-      return { ID_pengguna: user.ID_pengguna, name: user.name, email: user.email };
+      return { ID_pengguna: user.ID_pengguna, name: user.name, email: user.email, profile_image: user.profile_image };
     } catch (error) {
       throw error;
     }
@@ -45,18 +55,18 @@ const penggunaModel = {
 
   getUserNameByEmail: async (email) => {
     try {
-        const result = await pool.query(
-            "SELECT name, email FROM Pengguna WHERE email = $1", 
-            [email]
-        );
+      const result = await pool.query(
+        "SELECT name, email, profile_image FROM Pengguna WHERE email = $1", 
+        [email]
+      );
 
-        if (result.rows.length === 0) {
-            return null;
-        }
+      if (result.rows.length === 0) {
+        return null;
+      }
 
-        return result.rows[0]; // Ensure both name and email are returned
+      return result.rows[0]; // Pastikan name, email, dan profile_image dikembalikan
     } catch (error) {
-        throw error;
+      throw error;
     }
   }
 };
