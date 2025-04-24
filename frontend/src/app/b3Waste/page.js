@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const images = ['/b3_waste.png', '/b3_waste_1.jpg', '/b3_waste_2.jpg'];
 
@@ -57,19 +58,19 @@ const Page = () => {
             <div className='flex flex-col mt-[12vh] mx-auto max-w-5xl p-6'>
                 <div className="flex items-center justify-between mb-8">
                     <span 
-                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition"
+                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
                         onClick={() => router.push('/organicWaste')}
                     >
-                        &lt; Organic Waste
+                        <FaAngleLeft className="mr-1" /> Organic Waste
                     </span>
 
                     <h2 className='text-black text-4xl font-bold text-center'>B3 Waste</h2>
 
                     <span 
-                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition"
+                        className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
                         onClick={() => router.push('/inorganicWaste')}
                     >
-                        Inorganic Waste &gt;
+                        Inorganic Waste <FaAngleRight className="ml-1" />
                     </span>
                 </div>
                 

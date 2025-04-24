@@ -6,6 +6,7 @@ import Image from "next/image";
 import Footer from "@/components/footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import ChatWidget from "@/components/ChatWidget";
 
 const productVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -255,6 +256,7 @@ export default function Home() {
         </div>
       </section>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

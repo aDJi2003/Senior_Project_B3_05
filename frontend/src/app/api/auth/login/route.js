@@ -4,11 +4,12 @@ export async function POST(req) {
     try {
         const { email, password } = await req.json();
 
-        const response = await fetch("http://localhost:8080/api/pengguna/login", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         });
+
 
         if (!response.ok) throw new Error("Invalid credentials");
 
