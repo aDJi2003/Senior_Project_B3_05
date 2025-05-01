@@ -204,16 +204,18 @@ const ClientMap = () => {
           />
         </div>
         {(organicAmount || anorganicAmount || b3Amount) && (
-          <div>
-            <h5 className="font-semibold text-black mb-2">TPS yang mendukung:</h5>
+          <div className='text-black'>
+            <h5 className="font-semibold mb-2">TPS yang mendukung:</h5>
             {filteredTPS.length > 0 ? (
-              <ul className="list-disc list-inside text-black space-y-1">
-                {filteredTPS.map((tps) => (
-                  <li key={tps.id}>{tps.name}</li>
-                ))}
-              </ul>
+              <div className="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
+                <ul className="list-disc list-inside space-y-1">
+                  {filteredTPS.map((tps) => (
+                    <li key={tps.id}>{tps.name}</li>
+                  ))}
+                </ul>
+              </div>
             ) : (
-              <p className="text-black">Tidak ada TPS yang mendukung jenis sampah tersebut.</p>
+              <p>Tidak ada TPS yang mendukung jenis sampah tersebut.</p>
             )}
           </div>
         )}
