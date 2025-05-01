@@ -2,9 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../../context/AuthContext";
-import NavbarBackground from "../../components/navbar-background";
-import Footer from "../../components/footer"; 
+import { useAuth } from "@/context/AuthContext";
+import NavbarBackground from "@/components/navbar-background";
+import Footer from "@/components/footer";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function Register() {
     const { register } = useAuth();
@@ -18,6 +19,10 @@ export default function Register() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+
+    // State for toggling password visibility
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const nameInputRef = useRef(null);
 
@@ -63,6 +68,7 @@ export default function Register() {
 
                     <form onSubmit={handleSubmit}>
                         <div className="mt-6">
+                            {/* Name Field */}
                             <label className="block text-black">Name</label>
                             <input
                                 ref={nameInputRef}
@@ -75,6 +81,7 @@ export default function Register() {
                                 required
                             />
 
+                            {/* Email Field */}
                             <label className="block text-black mt-4">Email</label>
                             <input
                                 type="email"
@@ -86,31 +93,49 @@ export default function Register() {
                                 required
                             />
 
+                            {/* Password Field */}
                             <label className="block text-black mt-4">Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
-                                placeholder="Enter your password"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
+                                    placeholder="Enter your password"
+                                    required
+                                />
+                                <span
+                                    className="absolute top-[60%] right-4 transform -translate-y-1/2 cursor-pointer text-black"
+                                    onClick={() => setShowPassword(prev => !prev)}
+                                >
+                                    {showPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                                </span>
+                            </div>
 
+                            {/* Confirm Password Field */}
                             <label className="block text-black mt-4">Confirm Password</label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
-                                placeholder="Confirm your password"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
+                                    placeholder="Confirm your password"
+                                    required
+                                />
+                                <span
+                                    className="absolute top-[60%] right-4 transform -translate-y-1/2 cursor-pointer text-black"
+                                    onClick={() => setShowConfirmPassword(prev => !prev)}
+                                >
+                                    {showConfirmPassword ? <FiEye size={20} /> : <FiEyeOff size={20} />}
+                                </span>
+                            </div>
                         </div>
 
                         <p className="text-center text-black mt-4">
-                            Already have an account?{" "}
+                            Already have an account?{' '}
                             <a href="/login" className="text-blue-600 font-semibold italic">
                                 Login here
                             </a>
@@ -118,7 +143,7 @@ export default function Register() {
 
                         <button 
                             type="submit" 
-                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer"
+                            className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer disabled:opacity-50"
                             disabled={loading}
                         >
                             {loading ? "Registering..." : "Register"}
