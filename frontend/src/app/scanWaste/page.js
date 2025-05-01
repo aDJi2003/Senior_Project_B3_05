@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import * as tf from '@tensorflow/tfjs';
@@ -12,6 +13,7 @@ const Page = () => {
   const [model, setModel] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const loadModel = async () => {
@@ -51,6 +53,10 @@ const Page = () => {
     };
   };
   
+  const handleBuangSampah = () => {
+    router.push('/location');
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
       <NavbarUser />
@@ -79,11 +85,19 @@ const Page = () => {
             <div className="mt-4 flex flex-col items-center">
               <Image src={previewUrl} alt="preview" width={224} height={224} className="rounded-md" />
               { predictions.length > 0 && (
-                <div className="mt-2 text-xl font-bold text-black">
-                  {predictions.map((pred, idx) => (
-                    <p key={idx}>{pred.className}: {(pred.probability * 100).toFixed(2)}%</p>
-                  ))}
-                </div>
+                <>
+                  <div className="mt-2 text-xl font-bold text-black">
+                    {predictions.map((pred, idx) => (
+                      <p key={idx}>{pred.className}: {(pred.probability * 100).toFixed(2)}%</p>
+                    ))}
+                  </div>
+                  <button
+                    className="mt-4 w-[20vw] rounded-xl bg-[#5D8736] px-4 py-3 text-xl font-bold text-black cursor-pointer"
+                    onClick={handleBuangSampah}
+                  >
+                    Buang Sampah
+                  </button>
+                </>
               )}
             </div>
           )}

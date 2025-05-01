@@ -42,7 +42,7 @@ export default function Login() {
     return (
         <div className="min-h-screen flex flex-col justify-between bg-gray-100">
             <NavbarBackground />
-            <div className="flex flex-1 justify-center items-center mt-[12vh]">
+            <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
                 <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
                     <h2 className="text-2xl font-bold text-center text-black">Login</h2>
 
