@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "../context/AuthContext"; 
+import { AuthProvider } from "../context/AuthContext";
+import { HistoryProvider } from "../context/HistoryContext"; // Pastikan path sesuai struktur kamu
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +21,9 @@ const poppins = Poppins({
 });
 
 const bebasNeue = Bebas_Neue({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-bebas-neue',
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas-neue",
 });
 
 export const metadata = {
@@ -36,8 +37,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} ${bebasNeue.variable} antialiased`}
       >
-        <AuthProvider> 
-          {children}
+        <AuthProvider>
+          <HistoryProvider>
+            {children}
+          </HistoryProvider>
         </AuthProvider>
       </body>
     </html>

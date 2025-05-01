@@ -3,32 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Footer from "@/components/footer";
 import NavbarUser from "@/components/navbar-user";
-import axios from "axios";
+import { useHistory } from "@/context/HistoryContext";  // Mengimpor HistoryContext
 
 const Page = () => {
-    const [tableRows, setTableRows] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchHistory = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/sampah/by-email`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-                setTableRows(response.data);
-            } catch (err) {
-                setError("Failed to fetch data");
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchHistory();
-    }, []);
-
+    const { history, loading, error } = useHistory();  // Mengakses data history dari context
     const formatDate = (dateString) => {
         try {
             const date = new Date(dateString);
@@ -52,7 +30,7 @@ const Page = () => {
                             </div>
                         ) : error ? (
                             <p className="text-center text-red-500">{error}</p>
-                        ) : tableRows.length > 0 ? (
+                        ) : history.length > 0 ? (
                             <table className="min-w-full text-left text-sm text-gray-500">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-200 sticky top-0 z-10">
                                     <tr>
@@ -63,7 +41,7 @@ const Page = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {tableRows.map((row, idx) => (
+                                    {history.map((row, idx) => (
                                         <tr key={idx} className="bg-white border-b">
                                             <td className="px-6 py-4">{formatDate(row.waktu)}</td>
                                             <td className="px-6 py-4">{row.type_of_waste || "Unknown"}</td>

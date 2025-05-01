@@ -29,6 +29,9 @@ export const AuthProvider = ({ children }) => {
                 if (response.ok) {
                     const userData = await response.json();
                     setUser(userData); 
+
+                    // ✅ Simpan ID pengguna ke localStorage
+                    localStorage.setItem("userId", userData._id); // atau userData.id sesuai struktur API
                 }
             } catch (error) {
                 console.error("User fetch error:", error);
@@ -44,32 +47,41 @@ export const AuthProvider = ({ children }) => {
         const userData = await authLogin(email, password);
         
         if (userData?.token) {
-            localStorage.setItem("token", userData.token); // Store token
+            localStorage.setItem("token", userData.token); // Simpan token
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/me`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${userData.token}`,
                 },
             });
-    
+
             if (response.ok) {
                 const fetchedUser = await response.json();
                 setUser(fetchedUser); 
+
+                // ✅ Simpan ID pengguna ke localStorage
+                localStorage.setItem("userId", fetchedUser._id); // atau fetchedUser.id
             }
         }
-    
+
         router.push("/dashboard");
     };
-    
 
     const register = async (name, email, password) => {
         const userData = await authRegister(name, email, password);
         setUser(userData);
+
+        // ✅ Simpan ID pengguna ke localStorage
+        localStorage.setItem("userId", userData._id); // atau userData.id
+        localStorage.setItem("token", userData.token); // jika token dikembalikan
+
         router.push("/dashboard");
     };
 
     const logout = async () => {
         localStorage.removeItem("token"); 
+        localStorage.removeItem("userId"); // ✅ Hapus ID pengguna
         setUser(null);
         router.push("/login");
     };
