@@ -10,8 +10,8 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Sekarang kamu punya req.user.ID_pengguna
-    next();
+    req.user = decoded; // Menyimpan decoded token ke req.user
+    next(); // Melanjutkan ke controller berikutnya
   } catch (error) {
     return res.status(403).json({ error: "Invalid token" });
   }

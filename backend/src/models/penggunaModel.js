@@ -5,7 +5,10 @@ const { v4: uuidv4 } = require("uuid");
 const penggunaModel = {
   register: async (name, email, password, profileImageURL) => {
     try {
-      const userExists = await pool.query("SELECT * FROM Pengguna WHERE email = $1", [email]);
+      const userExists = await pool.query(
+        "SELECT * FROM Pengguna WHERE email = $1",
+        [email]
+      );
       if (userExists.rows.length > 0) throw new Error("Email already exists");
 
       const idPengguna = uuidv4();
@@ -26,7 +29,10 @@ const penggunaModel = {
 
   login: async (email, password) => {
     try {
-      const result = await pool.query("SELECT * FROM Pengguna WHERE email = $1", [email]);
+      const result = await pool.query(
+        "SELECT * FROM Pengguna WHERE email = $1",
+        [email]
+      );
       if (result.rows.length === 0) throw new Error("User not found");
 
       const user = result.rows[0];
@@ -34,7 +40,7 @@ const penggunaModel = {
       if (!passwordMatch) throw new Error("Invalid credentials");
 
       return {
-        ID_pengguna: user.id_pengguna, // <-- perbaikan di sini
+        ID_pengguna: user.id_pengguna,
         name: user.name,
         email: user.email,
         profile_image: user.profile_image,
@@ -54,6 +60,42 @@ const penggunaModel = {
       return result.rows[0];
     } catch (error) {
       throw error;
+    }
+  },
+
+  // ← baru: updateProfile
+  updateProfile: async (userId, { name, email, profileImageURL }) => {
+    try {
+      const fields = [];
+      const values = [];
+      let idx = 1;
+
+      if (name) {
+        fields.push(`name = $${idx++}`);
+        values.push(name);
+      }
+      if (email) {
+        fields.push(`email = $${idx++}`);
+        values.push(email);
+      }
+      if (profileImageURL) {
+        fields.push(`profile_image = $${idx++}`);
+        values.push(profileImageURL);
+      }
+
+      if (fields.length === 0) return null;
+
+      values.push(userId);
+      const query = `
+        UPDATE Pengguna
+        SET ${fields.join(", ")}
+        WHERE ID_pengguna = $${idx}
+        RETURNING ID_pengguna, name, email, profile_image
+      `;
+      const result = await pool.query(query, values);
+      return result.rows[0] || null;
+    } catch (err) {
+      throw new Error("Error updating profile: " + err.message);
     }
   },
 };
