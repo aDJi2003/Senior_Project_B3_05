@@ -14,13 +14,16 @@ const sampahModel = {
 
   getByUserId: async (id) => {
     try {
-      const result = await pool.query("SELECT * FROM Sampah WHERE ID_pengguna = $1", [ID_pengguna]);
-      return result.rows[0] || null;
+      const result = await pool.query(
+        "SELECT * FROM Sampah WHERE ID_pengguna = $1",
+        [id]
+      );
+      return result.rows; // karena bisa banyak data
     } catch (error) {
-      console.error("Error fetching sampah by ID:", error);
+      console.error("Error fetching sampah by user ID:", error);
       throw error;
     }
-  },
+  },  
 
   getByEmail: async (email) => {
     try {

@@ -5,10 +5,13 @@ import { getHistoryByUserId } from "../services/HistoryServices";
 
 const HistoryContext = createContext();
 
+/**
+ * Provider yang menyediakan data history sampah untuk komponen anak.
+ */
 export const HistoryProvider = ({ children }) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null); // sebaiknya null, bukan string kosong
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -16,7 +19,7 @@ export const HistoryProvider = ({ children }) => {
         const data = await getHistoryByUserId();
         setHistory(data);
       } catch (err) {
-        setError(err);
+        setError(err.message || "Terjadi kesalahan saat mengambil data");
       } finally {
         setLoading(false);
       }
@@ -32,4 +35,13 @@ export const HistoryProvider = ({ children }) => {
   );
 };
 
-export const useHistory = () => useContext(HistoryContext);
+/**
+ * Custom hook untuk menggunakan context History
+ */
+export const useHistory = () => {
+  const context = useContext(HistoryContext);
+  if (context === undefined) {
+    throw new Error("useHistory harus digunakan di dalam <HistoryProvider>");
+  }
+  return context;
+};
