@@ -29,6 +29,7 @@ const getSampahByUserId = async (req, res) => {
     console.error("Error di backend:", error);
     res.status(500).json({ error: error.message || "Failed to fetch data" });
   }
+
 };
 
 const createSampah = async (req, res) => {
