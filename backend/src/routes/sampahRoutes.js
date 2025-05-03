@@ -7,7 +7,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.get("/", sampahController.getAllSampah);
 // router.get("/by-email", authMiddleware, sampahController.getSampahByEmail); 
 router.get("/:id", authMiddleware, sampahController.getSampahByUserId);
-router.post("/create", sampahController.createSampah);
+router.post("/create", authMiddleware, sampahController.createSampah);
 router.put("/:id", sampahController.updateSampah);
 router.delete("/:id", sampahController.deleteSampah);
 console.log(sampahController); 

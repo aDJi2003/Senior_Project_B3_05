@@ -1,4 +1,5 @@
 const pool = require("../config/database");
+const { v4: uuidv4 } = require("uuid");
 
 const sampahModel = {
   // Mengambil semua data sampah
@@ -55,10 +56,12 @@ const sampahModel = {
         throw new Error("Invalid status. Allowed values: 'uncompletted', 'on progress', 'completed'");
       }
 
+      const id_sampah = uuidv4(); // 🆕 generate UUID
+
       const result = await pool.query(
-        `INSERT INTO Sampah (ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) 
-         VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-        [ID_pengguna, Mass_of_Weight, Type_of_waste, status, location]
+        `INSERT INTO Sampah (id_sampah, ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) 
+         VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        [id_sampah, ID_pengguna, Mass_of_Weight, Type_of_waste, status, location]
       );
 
       return result.rows[0];
