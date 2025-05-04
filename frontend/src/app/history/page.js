@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Footer from "@/components/footer";
 import NavbarUser from "@/components/navbar-user";
-import { useHistory } from "@/context/HistoryContext";  // Mengimpor HistoryContext
+import { useHistory } from "@/context/HistoryContext";
 
 const Page = () => {
-    const { history, loading, error } = useHistory();  // Mengakses data history dari context
+    const { history, loading, error } = useHistory();
     const formatDate = (dateString) => {
         try {
             const date = new Date(dateString);
@@ -38,6 +38,7 @@ const Page = () => {
                                         <th scope="col" className="px-6 py-3">Type</th>
                                         <th scope="col" className="px-6 py-3">Weight</th>
                                         <th scope="col" className="px-6 py-3">Status</th>
+                                        <th scope="col" className="px-6 py-3">Location</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +48,7 @@ const Page = () => {
                                             <td className="px-6 py-4">{row.type_of_waste || "Unknown"}</td>
                                             <td className="px-6 py-4">{row.mass_of_weight || "Unknown"}</td>
                                             <td className="px-6 py-4">{row.status || "Unknown"}</td>
+                                            <td className="px-6 py-4">{row.location || "Unknown"}</td>
                                         </tr>
                                     ))}
                                 </tbody>

@@ -31,7 +31,7 @@ const Page = () => {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
       <NavbarUser />
-      <div className="w-full h-[87vh] mt-[13vh]">
+      <div className="w-full h-[89vh] mt-[11vh]">
         <ClientMap />
       </div>
     </div>
