@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createSampah = async ({ Mass_of_Weight, Type_of_waste, status, location }) => {
+export const createSampah = async ({ Mass_of_Weight, Type_of_waste, location }) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("Tidak ada token. Silakan login.");
 
@@ -9,8 +9,8 @@ export const createSampah = async ({ Mass_of_Weight, Type_of_waste, status, loca
     {
       Mass_of_Weight,
       Type_of_waste,
-      status,
       location
+      // status tidak dikirim, akan default ke "completed" oleh backend
     },
     {
       headers: {

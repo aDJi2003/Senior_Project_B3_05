@@ -11,7 +11,11 @@ export const SampahProvider = ({ children }) => {
   const createSampah = async (data) => {
     try {
       setLoading(true);
-      const newSampah = await createSampahService(data);
+
+      // Hapus status jika ada (biarkan backend handle default)
+      const { status, ...dataWithoutStatus } = data;
+
+      const newSampah = await createSampahService(dataWithoutStatus);
       setSampahList((prev) => [...prev, newSampah]);
       return newSampah;
     } catch (error) {

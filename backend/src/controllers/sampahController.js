@@ -31,17 +31,24 @@ const getSampahByUserId = async (req, res) => {
   }
 
 };
-
 const createSampah = async (req, res) => {
   try {
     const { Mass_of_Weight, Type_of_waste, status, location } = req.body;
     const ID_pengguna = req.user?.ID_pengguna;
 
-    if (!ID_pengguna || !Mass_of_Weight || !Type_of_waste || !status || !location) {
-      return res.status(400).json({ error: "All fields are required" });
+    // Validasi field wajib (tanpa status)
+    if (!ID_pengguna || !Mass_of_Weight || !Type_of_waste || !location) {
+      return res.status(400).json({ error: "ID_pengguna, Mass_of_Weight, Type_of_waste, and location are required" });
     }
 
-    const data = await Sampah.createSampah(ID_pengguna, Mass_of_Weight, Type_of_waste, status, location);
+    // Kirim status jika ada, kalau tidak biarkan undefined (akan default ke "completed" di model)
+    const data = await Sampah.createSampah(
+      ID_pengguna,
+      Mass_of_Weight,
+      Type_of_waste,
+      status, // opsional, bisa undefined
+      location
+    );
 
     res.status(201).json(data);
   } catch (error) {
@@ -49,6 +56,7 @@ const createSampah = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error", details: error.message });
   }
 };
+
 
 const updateSampah = async (req, res) => {
   try {

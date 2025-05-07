@@ -42,35 +42,35 @@ const sampahModel = {
     }
   },
 
-  createSampah: async (ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) => {
+  createSampah: async (ID_pengguna, Mass_of_Weight, Type_of_waste, status = "completed", location) => {
     try {
       // Validasi Type_of_waste
       const validWasteTypes = ["organic", "inorganic", "B3"];
       if (!validWasteTypes.includes(Type_of_waste)) {
         throw new Error("Invalid Type_of_waste. Allowed values: 'organic', 'inorganic', 'B3'");
       }
-
+  
       // Validasi status
       const validStatuses = ["uncompletted", "on progress", "completed"];
       if (!validStatuses.includes(status)) {
         throw new Error("Invalid status. Allowed values: 'uncompletted', 'on progress', 'completed'");
       }
-
+  
       const id_sampah = uuidv4(); // 🆕 generate UUID
-
+  
       const result = await pool.query(
         `INSERT INTO Sampah (id_sampah, ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) 
          VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
         [id_sampah, ID_pengguna, Mass_of_Weight, Type_of_waste, status, location]
       );
-
+  
       return result.rows[0];
     } catch (error) {
       console.error("Error creating sampah:", error);
       throw error;
     }
   },
-
+  
   // Memperbarui data sampah berdasarkan ID
   updateSampah: async (id, Mass_of_Weight, Type_of_waste, status, location) => {
     try {
