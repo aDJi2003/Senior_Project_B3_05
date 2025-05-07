@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { FaMapMarkerAlt, FaTrash } from 'react-icons/fa';
+import trashLocations from "../../public/data/trashLocations.json"
 
 const userLocationIcon = L.divIcon({
   html: renderToStaticMarkup(<FaMapMarkerAlt size={30} color="blue" />),
@@ -18,34 +19,6 @@ const trashIcon = L.divIcon({
   className: '',
   iconSize: [30, 30],
 });
-
-const trashLocations = [
-  { id: 1, name: 'TPS Ngemplak A', coords: [-7.696000, 110.430000], types: ['organic', 'anorganic', 'b3'] },
-  { id: 2, name: 'TPS Ngemplak B', coords: [-7.718000, 110.435000], types: ['organic', 'anorganic'] },
-  { id: 3, name: 'TPSS Wongsodirjan', coords: [-7.787966, 110.360650], types: ['organic', 'anorganic'] },          
-  { id: 4, name: 'TPSS Jati', coords: [-7.785460, 110.358733], types: ['organic', 'anorganic'] },                  
-  { id: 5, name: 'TPSS Gedong Tengen', coords: [-7.789500, 110.359011], types: ['organic', 'anorganic'] },         
-  { id: 6, name: 'TPS Giwangan', coords: [-7.833206, 110.392347], types: ['organic', 'anorganic'] },               
-  { id: 7, name: 'TPS Gedongkiwo', coords: [-7.818889, 110.354444], types: ['organic', 'anorganic'] },             
-  { id: 8, name: 'TPS Pakuncen', coords: [-7.793611, 110.351944], types: ['organic', 'anorganic'] },               
-  { id: 9, name: 'TPS Wirobrajan', coords: [-7.804722, 110.353333], types: ['organic', 'anorganic'] },             
-  { id: 10, name: 'TPS Patangpuluhan', coords: [-7.810278, 110.348056], types: ['organic', 'anorganic'] },         
-  { id: 11, name: 'TPS Terban', coords: [-7.779444, 110.374722], types: ['organic', 'anorganic'] },                
-  { id: 12, name: 'TPS Kotabaru', coords: [-7.786111, 110.377778], types: ['organic', 'anorganic'] },              
-  { id: 13, name: 'TPS Klitren', coords: [-7.781389, 110.386667], types: ['organic', 'anorganic'] },               
-  { id: 14, name: 'TPS Baciro', coords: [-7.791944, 110.385278], types: ['organic', 'anorganic'] },                
-  { id: 15, name: 'TPS Suryatmajan', coords: [-7.793333, 110.367778], types: ['organic', 'anorganic'] },           
-  { id: 16, name: 'TPS Tegalpanggung', coords: [-7.790556, 110.372500], types: ['organic', 'anorganic'] },         
-  { id: 17, name: 'TPS Bausasran', coords: [-7.795556, 110.374722], types: ['organic', 'anorganic'] },             
-  { id: 18, name: 'TPS Balecatur', coords: [-7.804005, 110.303308], types: ['organic', 'anorganic'] },             
-  { id: 19, name: 'TPS Sidoluhur', coords: [-7.766494, 110.288569], types: ['organic', 'anorganic'] },             
-  { id: 20, name: 'TPS Sidomulyo', coords: [-7.778233, 110.290898], types: ['organic', 'anorganic'] },             
-  { id: 21, name: 'TPS Sidoagung', coords: [-7.767806, 110.293464], types: ['organic', 'anorganic'] },             
-  { id: 22, name: 'TPS Sidokarto', coords: [-7.776900, 110.304119], types: ['organic', 'anorganic'] },             
-  { id: 23, name: 'TPS Wates', coords: [-7.860000, 110.158889], types: ['organic', 'anorganic'] },                  
-  { id: 24, name: 'TPS Karangwuni', coords: [-7.913333, 110.094444], types: ['organic', 'anorganic'] },            
-  { id: 25, name: 'TPS Sogan I', coords: [-7.890278, 110.114444], types: ['organic', 'anorganic'] }                
-];
 
 function haversineDistance(coords1, coords2) {
   const [lat1, lon1] = coords1;
