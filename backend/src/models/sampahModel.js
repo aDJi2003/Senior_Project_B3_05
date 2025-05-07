@@ -42,9 +42,6 @@ const sampahModel = {
     }
   },
 
-<<<<<<< HEAD
-  createSampah: async (ID_pengguna, Mass_of_Weight, Type_of_waste, status = "completed", location) => {
-=======
   createSampah: async (
     ID_pengguna,
     Mass_of_Weight,
@@ -52,7 +49,6 @@ const sampahModel = {
     status,
     location
   ) => {
->>>>>>> a850dc2d30b1f55f212e7e0a15164aa919f0ca57
     try {
       // Validasi Type_of_waste
       const validWasteTypes = ["organic", "inorganic", "B3"];
@@ -69,17 +65,10 @@ const sampahModel = {
           "Invalid status. Allowed values: 'uncompletted', 'on progress', 'completed'"
         );
       }
-<<<<<<< HEAD
   
       const id_sampah = uuidv4(); // 🆕 generate UUID
   
-      const result = await pool.query(
-=======
-
-      const id_sampah = uuidv4();
-
-      const { rows } = await query(
->>>>>>> a850dc2d30b1f55f212e7e0a15164aa919f0ca57
+      const result = await query(
         `INSERT INTO Sampah (id_sampah, ID_pengguna, Mass_of_Weight, Type_of_waste, status, location) 
          VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
         [
@@ -90,19 +79,15 @@ const sampahModel = {
           status,
           location,
         ]
-      );
-<<<<<<< HEAD
+      );      
   
       return result.rows[0];
-=======
-
-      return rows[0];
->>>>>>> a850dc2d30b1f55f212e7e0a15164aa919f0ca57
     } catch (error) {
       console.error("Error creating sampah:", error);
       throw error;
     }
   },
+  
   
   // Memperbarui data sampah berdasarkan ID
   updateSampah: async (id, Mass_of_Weight, Type_of_waste, status, location) => {

@@ -9,8 +9,8 @@ export const createSampah = async ({ Mass_of_Weight, Type_of_waste, location }) 
     {
       Mass_of_Weight,
       Type_of_waste,
-      location
-      // status tidak dikirim, akan default ke "completed" oleh backend
+      location,
+      status: "completed"
     },
     {
       headers: {

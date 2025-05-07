@@ -1,9 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "../context/AuthContext";
-import { HistoryProvider } from "../context/HistoryContext"; // Pastikan path sesuai struktur kamu
 
+import { AuthProvider } from "../context/AuthContext";
+import { HistoryProvider } from "../context/HistoryContext";
+import { SampahProvider } from "../context/sampahContext"; // Gabungkan juga context ini
+
+// Font setup
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,7 +42,9 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <HistoryProvider>
-            {children}
+            <SampahProvider>
+              {children}
+            </SampahProvider>
           </HistoryProvider>
         </AuthProvider>
       </body>

@@ -1,32 +1,18 @@
-"use client";
-import { createContext, useContext, useState } from "react";
-import { createSampah as createSampahService } from "@/services/sampahServices";
+'use client';
+import React, { createContext, useContext, useState } from 'react';
 
 const SampahContext = createContext();
 
 export const SampahProvider = ({ children }) => {
   const [sampahList, setSampahList] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const createSampah = async (data) => {
-    try {
-      setLoading(true);
-
-      // Hapus status jika ada (biarkan backend handle default)
-      const { status, ...dataWithoutStatus } = data;
-
-      const newSampah = await createSampahService(dataWithoutStatus);
-      setSampahList((prev) => [...prev, newSampah]);
-      return newSampah;
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+  const createSampahEntry = (data) => {
+    setSampahList((prev) => [...prev, { ...data, waktu: new Date().toISOString() }]);
+    console.log("Sampah ditambahkan:", data);
   };
 
   return (
-    <SampahContext.Provider value={{ sampahList, createSampah, loading }}>
+    <SampahContext.Provider value={{ sampahList, createSampahEntry }}>
       {children}
     </SampahContext.Provider>
   );

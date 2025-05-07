@@ -6,7 +6,8 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { FaMapMarkerAlt, FaTrash } from 'react-icons/fa';
-import trashLocations from "../../public/data/trashLocations.json"
+import trashLocations from "../../public/data/trashLocations.json";
+import { createSampah } from '../services/sampahServices'; // ganti path sesuai strukturmu
 
 const userLocationIcon = L.divIcon({
   html: renderToStaticMarkup(<FaMapMarkerAlt size={30} color="blue" />),
@@ -45,7 +46,6 @@ function LocationMarker({ onLocationObtained }) {
         (pos) => {
           const { latitude, longitude } = pos.coords;
           const coords = [latitude, longitude];
-          console.log('User location:', coords);
           onLocationObtained(coords);
           map.setView(coords, 16);
         },
@@ -53,8 +53,6 @@ function LocationMarker({ onLocationObtained }) {
           console.error('Error obtaining location:', error);
         }
       );
-    } else {
-      console.error('Geolocation not supported by this browser.');
     }
   }, [map, onLocationObtained]);
 
@@ -72,26 +70,18 @@ const ClientMap = () => {
   const [chosenTPS, setChosenTPS] = useState(null);
 
   const handleChange = (value, setter) => {
-    if (value === '') {
-      setter('');
-      return;
-    }
+    if (value === '') return setter('');
     const parsedValue = parseInt(value, 10);
-    if (isNaN(parsedValue)) {
-      return;
-    }
-    if (parsedValue < 0) {
-      setter('0');
-    } else {
+    if (!isNaN(parsedValue) && parsedValue >= 0) {
       setter(String(parsedValue));
     }
   };
 
   useEffect(() => {
     const results = trashLocations.filter((trash) => {
-      if (organicAmount && parseInt(organicAmount) > 0 && !trash.types.includes('organic')) return false;
-      if (anorganicAmount && parseInt(anorganicAmount) > 0 && !trash.types.includes('anorganic')) return false;
-      if (b3Amount && parseInt(b3Amount) > 0 && !trash.types.includes('b3')) return false;
+      if (organicAmount > 0 && !trash.types.includes('organic')) return false;
+      if (anorganicAmount > 0 && !trash.types.includes('anorganic')) return false;
+      if (b3Amount > 0 && !trash.types.includes('b3')) return false;
       return true;
     });
     setFilteredTPS(results);
@@ -109,8 +99,6 @@ const ClientMap = () => {
         }
       });
       setNearestTPS(localNearestTPS);
-    } else {
-      setNearestTPS(null);
     }
   }, [userPosition, filteredTPS]);
 
@@ -119,9 +107,41 @@ const ClientMap = () => {
     setShowModal(true);
   };
 
-  const handleConfirmDiscard = () => {
-    setShowModal(false);
-    alert('Sampah berhasil dibuang! Silakan Cek Histori');
+  const handleConfirmDiscard = async () => {
+    try {
+      const promises = [];
+
+      if (organicAmount && parseInt(organicAmount) > 0) {
+        promises.push(createSampah({
+          Mass_of_Weight: parseInt(organicAmount),
+          Type_of_waste: 'organic',
+          location: chosenTPS.name
+        }));
+      }
+      if (anorganicAmount && parseInt(anorganicAmount) > 0) {
+        promises.push(createSampah({
+          Mass_of_Weight: parseInt(anorganicAmount),
+          Type_of_waste: 'inorganic',
+          location: chosenTPS.name
+        }));
+      }
+      if (b3Amount && parseInt(b3Amount) > 0) {
+        promises.push(createSampah({
+          Mass_of_Weight: parseInt(b3Amount),
+          Type_of_waste: 'B3',
+          location: chosenTPS.name
+        }));
+      }
+
+      await Promise.all(promises);
+
+      alert('Sampah berhasil dibuang! Silakan cek histori.');
+    } catch (error) {
+      console.error('Gagal membuang sampah:', error);
+      alert('Gagal membuang sampah. Silakan coba lagi.');
+    } finally {
+      setShowModal(false);
+    }
   };
 
   const formatDiscardMessage = () => {
@@ -133,76 +153,57 @@ const ClientMap = () => {
     if (org > 0) messageParts.push(`${org} kg organic`);
     if (an > 0) messageParts.push(`${an} kg anorganic`);
     if (b3 > 0) messageParts.push(`${b3} kg B3`);
-
-    const joinedMessage = messageParts.join(', ');
-
-    if (!joinedMessage) {
-      return '0 kg sampah (belum ada input)';
-    }
-    return joinedMessage;
+    return messageParts.length > 0 ? messageParts.join(', ') : '0 kg sampah';
   };
 
   return (
     <div className="relative w-full h-full">
+      {/* Form Input */}
       <div className="absolute top-5 left-5 z-1000 bg-white p-4 rounded shadow-md w-72 space-y-2">
         <h4 className="font-semibold text-lg text-black">Masukkan Jumlah Sampah</h4>
-        <div>
-          <label className="block mb-1 text-black font-medium">Organic</label>
-          <input
-            type="text"
-            value={organicAmount}
-            onChange={(e) => handleChange(e.target.value, setOrganicAmount)}
-            className="w-full border border-gray-300 rounded px-2 py-1 text-black focus:outline-none focus:border-blue-500"
-            placeholder="Contoh: 2"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 text-black font-medium">Anorganic</label>
-          <input
-            type="text"
-            value={anorganicAmount}
-            onChange={(e) => handleChange(e.target.value, setAnorganicAmount)}
-            className="w-full border border-gray-300 rounded px-2 py-1 text-black focus:outline-none focus:border-blue-500"
-            placeholder="Contoh: 1"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 text-black font-medium">B3</label>
-          <input
-            type="text"
-            value={b3Amount}
-            onChange={(e) => handleChange(e.target.value, setB3Amount)}
-            className="w-full border border-gray-300 rounded px-2 py-1 text-black focus:outline-none focus:border-blue-500"
-            placeholder="Contoh: 0"
-          />
-        </div>
-        {(organicAmount || anorganicAmount || b3Amount) && (
-          <div className='text-black'>
+        {['Organic', 'Anorganic', 'B3'].map((type) => (
+          <div key={type}>
+            <label className="block mb-1 text-black font-medium">{type}</label>
+            <input
+              type="text"
+              value={
+                type === 'Organic' ? organicAmount :
+                type === 'Anorganic' ? anorganicAmount :
+                b3Amount
+              }
+              onChange={(e) =>
+                handleChange(
+                  e.target.value,
+                  type === 'Organic' ? setOrganicAmount :
+                  type === 'Anorganic' ? setAnorganicAmount :
+                  setB3Amount
+                )
+              }
+              className="w-full border border-gray-300 rounded px-2 py-1 text-black"
+              placeholder="Contoh: 0"
+            />
+          </div>
+        ))}
+        {(organicAmount || anorganicAmount || b3Amount) && filteredTPS.length > 0 && (
+          <div className="text-black">
             <h5 className="font-semibold mb-2">TPS yang mendukung:</h5>
-            {filteredTPS.length > 0 ? (
-              <div className="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
-                <ul className="list-disc list-inside space-y-1">
-                  {filteredTPS.map((tps) => (
-                    <li key={tps.id}>{tps.name}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p>Tidak ada TPS yang mendukung jenis sampah tersebut.</p>
-            )}
+            <ul className="list-disc list-inside max-h-40 overflow-y-auto">
+              {filteredTPS.map((tps) => (
+                <li key={tps.id}>{tps.name}</li>
+              ))}
+            </ul>
           </div>
         )}
       </div>
+
+      {/* Map */}
       <MapContainer center={[-7.807, 110.402]} zoom={16} className="w-full h-full" zoomControl={false}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <LocationMarker onLocationObtained={setUserPosition} />
         {trashLocations.map((trash) => (
           <Marker key={trash.id} position={trash.coords} icon={trashIcon}>
             <Popup>
-              <span className="font-bold">{trash.name}</span> <br /> Jenis: {trash.types.join(', ')}
+              <b>{trash.name}</b><br />Jenis: {trash.types.join(', ')}
             </Popup>
           </Marker>
         ))}
@@ -212,42 +213,37 @@ const ClientMap = () => {
           </Marker>
         )}
       </MapContainer>
+
+      {/* Rekomendasi TPS */}
       {userPosition && nearestTPS && (
-        <div className="absolute bottom-5 left-5 bg-white bg-opacity-90 p-3 rounded shadow-md max-w-xs text-sm z-1000">
+        <div className="absolute bottom-5 left-5 bg-white p-3 rounded shadow-md max-w-xs text-sm z-1000">
           <h4 className="font-semibold mb-1 text-black">Rekomendasi TPS</h4>
           <p className="text-black">
             {nearestTPS.name} <br />
             {Math.round(nearestTPS.distance)} m dari lokasi Anda.
           </p>
           <button
-            className="bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
+            className="bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600"
             onClick={() => handleOpenModal(nearestTPS)}
           >
             Buang sampah di sini
           </button>
         </div>
       )}
+
+      {/* Modal */}
       {showModal && chosenTPS && (
-        <div className="fixed inset-0 flex items-center justify-center z-1050">
+        <div className="fixed inset-0 flex items-center justify-center z-1050 bg-black bg-opacity-30">
           <div className="bg-white p-6 rounded shadow-md w-80">
             <h3 className="text-lg font-semibold mb-4 text-black">Konfirmasi Pembuangan Sampah</h3>
             <p className="text-black mb-4">
-              Apakah Anda yakin akan membuang 
-              <span className="font-bold"> {formatDiscardMessage()}</span> 
-              {' '}di 
-              <span className="font-bold"> {chosenTPS.name}</span>?
+              Apakah Anda yakin akan membuang <b>{formatDiscardMessage()}</b> di <b>{chosenTPS.name}</b>?
             </p>
             <div className="flex justify-end space-x-2">
-              <button
-                className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 cursor-pointer"
-                onClick={() => setShowModal(false)}
-              >
+              <button className="bg-gray-300 text-black px-3 py-1 rounded" onClick={() => setShowModal(false)}>
                 Batal
               </button>
-              <button
-                className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
-                onClick={handleConfirmDiscard}
-              >
+              <button className="bg-blue-500 text-white px-3 py-1 rounded" onClick={handleConfirmDiscard}>
                 Ya, Buang
               </button>
             </div>
