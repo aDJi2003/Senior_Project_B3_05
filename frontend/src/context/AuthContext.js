@@ -88,8 +88,21 @@ export const AuthProvider = ({ children }) => {
 
     const updateProfile = async (formData) => {
         try {
-            const updatedUser = await updateProfileService(formData);
-            setUser(updatedUser.user);
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/update`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData, 
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update profile");
+            }
+
+            const updatedUser = await response.json();
+            setUser(updatedUser.user); 
         } catch (error) {
             console.error("Failed to update profile:", error);
             throw error;
