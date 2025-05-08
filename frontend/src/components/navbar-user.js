@@ -59,12 +59,22 @@ const NavbarUser = () => {
 
         {/* Profile Section */}
         <div className="hidden md:flex items-center space-x-2">
-          <span className="text-[#F4FFC3] font-bold text-lg">{user ? user.name : "Loading..."}</span>
+          <span className="text-[#F4FFC3] font-bold text-lg">
+            {user ? user.name : "Loading..."}
+          </span>
           <Link href="/profile">
-            <Image src="/profile.png" alt="Profile" width={40} height={40} className="rounded-full cursor-pointer" />
+            <div className="w-[40px] h-[40px] rounded-full border-2 border-[#F4FFC3] overflow-hidden cursor-pointer">
+              <Image
+                src={user?.profile_image || "/profile.png"}
+                alt="Profile"
+                width={60}
+                height={60}
+              />
+            </div>
           </Link>
         </div>
       </div>
+
 
       {/* Mobile Menu */}
       {isMenuOpen && (
@@ -85,7 +95,14 @@ const NavbarUser = () => {
 
             {/* Profile in Mobile Menu */}
             <div className="flex flex-col items-center mt-6 space-y-2">
-              <Image src="/profile.png" alt="Profile" width={60} height={60} className="rounded-full" />
+              <div className="w-[60px] h-[60px] rounded-full border-2 border-[#F4FFC3] overflow-hidden">
+                <Image
+                  src={user?.profile_image || "/profile.png"}
+                  alt="Profile"
+                  width={60}
+                  height={60}
+                />
+              </div>
               <span className="text-[#F4FFC3] text-xl font-semibold">{user ? user.name : "Loading..."}</span>
               <Link href="/profile" className="text-white hover:text-gray-300" onClick={toggleMenu}>
                 View Profile
