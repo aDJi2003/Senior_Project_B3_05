@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { login as authLogin, register as authRegister } from "@/services/authServices";
+import { login as authLogin, register as authRegister, updateProfile as updateProfileService } from "@/services/authServices";
 
 const AuthContext = createContext();
 
@@ -86,8 +86,18 @@ export const AuthProvider = ({ children }) => {
         router.push("/login");
     };
 
+    const updateProfile = async (formData) => {
+        try {
+            const updatedUser = await updateProfileService(formData);
+            setUser(updatedUser.user);
+        } catch (error) {
+            console.error("Failed to update profile:", error);
+            throw error;
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, register, logout, updateProfile, loading }}>
             {children}
         </AuthContext.Provider>
     );
