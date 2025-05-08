@@ -30,7 +30,12 @@ const ProfilePage = () => {
     if (user) {
       setName(user.name || "");
       setEmail(user.email || "");
-      setPreviewUrl(user.avatarUrl || "/profile.png");
+
+      
+      const validImageUrl = user.profile_image?.startsWith("http")
+        ? user.profile_image
+        : "/profile.png";
+      setPreviewUrl(validImageUrl);
     }
   }, [user]);
 
@@ -62,7 +67,8 @@ const ProfilePage = () => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
-      if (avatarFile) formData.append("avatar", avatarFile);
+      if (avatarFile) formData.append("profileImageURL", avatarFile);
+
       await updateProfile(formData);
       setEditingName(false);
       setEditingEmail(false);
