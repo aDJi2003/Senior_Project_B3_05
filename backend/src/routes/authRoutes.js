@@ -47,7 +47,9 @@ const storage = multer.diskStorage({
       };
   
       if (req.file) {
-        const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          folder: "profile_pictures", 
+        });
         updateData.profileImageURL = result.secure_url;
         fs.unlinkSync(req.file.path);
       }
@@ -66,7 +68,7 @@ const storage = multer.diskStorage({
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: "Failed to update user",
+        message: "Failed to update profile",
         error: error.message,
       });
     }
