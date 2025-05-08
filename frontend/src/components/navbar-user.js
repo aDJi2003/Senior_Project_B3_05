@@ -67,8 +67,9 @@ const NavbarUser = () => {
               <Image
                 src={user?.profile_image || "/profile.png"}
                 alt="Profile"
-                width={60}
-                height={60}
+                width={40}
+                height={40}
+                className="object-cover w-full h-full"
               />
             </div>
           </Link>
@@ -101,6 +102,7 @@ const NavbarUser = () => {
                   alt="Profile"
                   width={60}
                   height={60}
+                  className="object-cover w-full h-full"
                 />
               </div>
               <span className="text-[#F4FFC3] text-xl font-semibold">{user ? user.name : "Loading..."}</span>
