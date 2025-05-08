@@ -2,12 +2,13 @@
 
 import Footer from '@/components/footer';
 import NavbarUser from '@/components/navbar-user';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ProgressCard from '@/components/progressCard';
 import Link from 'next/link';
 import { useAuth } from "@/context/AuthContext";
 import FunFactCard from '@/components/funFactCard';
+import { getWeeklyWeight, getTotalWasteData } from "@/services/HistoryServices";
 
 import {
   Chart as ChartJS,
@@ -31,6 +32,34 @@ ChartJS.register(
 
 const Page = () => {
   const { user } = useAuth();
+  const [weeklyWeight, setWeeklyWeight] = useState(0);
+  const [totalWaste, setTotalWaste] = useState({ organic: 0, inorganic: 0, b3: 0 });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const weight = await getWeeklyWeight();
+        setWeeklyWeight(weight);
+
+        const wasteData = await getTotalWasteData(); 
+        setTotalWaste(wasteData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error.response?.data || error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getMostFrequentWaste = () => {
+    const { organic, inorganic, b3 } = totalWaste;
+    const maxWaste = Math.max(organic, inorganic, b3);
+
+    if (maxWaste === organic) return "Organic";
+    if (maxWaste === inorganic) return "Inorganic";
+    if (maxWaste === b3) return "B3";
+    return "Unknown";
+  };
 
   const dashboardCards = [
     {
@@ -58,11 +87,11 @@ const Page = () => {
     datasets: [
       {
         label: 'Total Waste (kg)',
-        data: [3.5, 2.0, 3.0],
+        data: [totalWaste.organic, totalWaste.inorganic, totalWaste.b3],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
         ],
       },
     ],
@@ -95,11 +124,11 @@ const Page = () => {
         <div className="flex flex-wrap gap-5 items-center justify-between mb-[3vh]">
           {dashboardCards.map((card, idx) => (
             <Link key={idx} href={card.link}>
-              <button className="relative rounded-2xl flex justify-center items-center w-[380px] h-[130px] cursor-pointer">
+              <button className="relative rounded-2xl flex justify-center items-center w-[330px] h-[130px] cursor-pointer">
                 <Image
                   src={card.src}
                   alt={card.alt}
-                  width={400}
+                  width={330}
                   height={130}
                   className="w-full h-full rounded-2xl"
                 />
@@ -123,15 +152,15 @@ const Page = () => {
             <div className="flex-1">
               <ProgressCard
                 title="Weekly Progress"
-                weight="0.0/10 Kg"
-                information="This milestone will reset within 7 days"
+                weight={`${weeklyWeight} Kg`}
+                information="The data above shows your progress over the past 7 days."
               />
             </div>
             <div className="flex-1">
               <ProgressCard
                 title="Most Frequent Waste"
-                weight="Organic"
-                information="This milestone will reset within 7 days"
+                weight={getMostFrequentWaste()}
+                information="The data above shows your progress over the past 7 days."
               />
             </div>
             <div className="flex-1">
