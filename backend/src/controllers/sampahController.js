@@ -1,4 +1,5 @@
 const Sampah = require("../models/sampahModel");
+const Waste = require('../models/sampahModel');
 
 const getAllSampah = async (req, res) => {
   try {
@@ -46,7 +47,7 @@ const createSampah = async (req, res) => {
       ID_pengguna,
       Mass_of_Weight,
       Type_of_waste,
-      status, // opsional, bisa undefined
+      status, 
       location
     );
 
@@ -99,10 +100,56 @@ const deleteSampah = async (req, res) => {
   }
 };
 
+
+const getWeeklyWeight = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+
+    if (!userId) {
+      return res.status(400).json({ error: "userId is required in the query parameters" });
+    }
+
+    const totalWeight = await Waste.getWeeklyWeight(userId);
+
+    if (totalWeight === null || totalWeight === undefined) {
+      return res.status(404).json({ error: "No data found for the given userId" });
+    }
+
+    res.status(200).json({ totalWeight });
+  } catch (error) {
+    console.error("Error fetching weekly weight:", error);
+    res.status(500).json({ error: "Failed to fetch weekly weight", details: error.message });
+  }
+};
+
+const getTotalWaste = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ error: "userId is required in the query parameters" });
+    }
+
+    const totalWaste = await Sampah.getTotalWaste(userId);
+
+    if (!totalWaste) {
+      return res.status(404).json({ error: "No waste data found for the given userId" });
+    }
+
+    res.status(200).json(totalWaste);
+  } catch (error) {
+    console.error("Error fetching total waste data:", error);
+    res.status(500).json({ error: "Failed to fetch total waste data", details: error.message });
+  }
+};
+
 module.exports = {
   getAllSampah,
   getSampahByUserId,
   createSampah,
   updateSampah,
   deleteSampah,
+  getWeeklyWeight,
+  getTotalWaste,
 };
