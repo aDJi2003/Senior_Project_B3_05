@@ -47,25 +47,28 @@ const storage = multer.diskStorage({
   
       if (req.file) {
         const result = await cloudinary.uploader.upload(req.file.path);
-        
         updateData.profileImageURL = result.secure_url;
-        
         fs.unlinkSync(req.file.path);
       } else if (req.body.profileImageURL) {
         updateData.profileImageURL = req.body.profileImageURL;
       }
+
+      const updatedUser = await Pengguna.updateProfile(userId, updateData); // Ensure this is called
+      if (!updatedUser) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+
       res.status(200).json({
         success: true,
         message: "User updated successfully",
-        user: updateData
+        user: updatedUser,
       });
-      
     } catch (error) {
-      console.error("Error updating user:", error);
+      console.error("Error updating user:", error); // Debug log
       res.status(500).json({
         success: false,
         message: "Failed to update user",
-        error: error.message
+        error: error.message,
       });
     }
   });

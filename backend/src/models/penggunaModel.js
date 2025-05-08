@@ -84,15 +84,18 @@ const penggunaModel = {
       if (fields.length === 0) return null;
 
       values.push(userId);
-      const query = `
+      const sqlQuery = `
         UPDATE Pengguna
         SET ${fields.join(", ")}
         WHERE ID_pengguna = $${idx}
         RETURNING ID_pengguna, name, email, profile_image
       `;
-      const { rows } = await query(query, values);
+      console.log("Executing query:", sqlQuery, "with values:", values); // Debug log
+      const { rows } = await query(sqlQuery, values);
+      console.log("Query result:", rows); // Debug log
       return rows[0] || null;
     } catch (err) {
+      console.error("Error in updateProfile:", err.message); // Debug log
       throw new Error("Error updating profile: " + err.message);
     }
   },
