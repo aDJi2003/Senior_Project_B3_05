@@ -67,7 +67,7 @@ const ProfilePage = () => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
-      if (avatarFile) formData.append("profileImageURL", avatarFile);
+      if (avatarFile) formData.append("profileImage", avatarFile);
 
       await updateProfile(formData);
       setEditingName(false);

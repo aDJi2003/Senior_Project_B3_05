@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { login as authLogin, register as authRegister } from "@/services/authServices";
+import { login as authLogin, register as authRegister, updateProfile as updateProfileService } from "@/services/authServices";
 
 const AuthContext = createContext();
 
@@ -86,8 +86,31 @@ export const AuthProvider = ({ children }) => {
         router.push("/login");
     };
 
+    const updateProfile = async (formData) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/update`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData, 
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to update profile");
+            }
+
+            const updatedUser = await response.json();
+            setUser(updatedUser.user); 
+        } catch (error) {
+            console.error("Failed to update profile:", error);
+            throw error;
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, register, logout, updateProfile, loading }}>
             {children}
         </AuthContext.Provider>
     );

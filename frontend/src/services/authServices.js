@@ -24,3 +24,26 @@ export const login = async (email, password) => {
         throw error.response?.data?.message || "Login failed";
     }
 };
+
+export const updateProfile = async (formData) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) throw new Error("No token found. Please log in.");
+
+  try {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/pengguna/update`, 
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to update profile";
+  }
+};
