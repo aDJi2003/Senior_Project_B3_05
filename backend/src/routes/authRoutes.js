@@ -37,9 +37,10 @@ const storage = multer.diskStorage({
     }
   });
   
-  router.put("/update/:id", verifyToken, upload.single("profileImage"), async (req, res) => {
+  router.put("/update", verifyToken, upload.single("profileImage"), async (req, res) => {
     try {
-      const userId = req.params.id;
+      const userId = req.user.ID_pengguna; 
+
       let updateData = {
         name: req.body.name,
         email: req.body.email,
@@ -49,11 +50,10 @@ const storage = multer.diskStorage({
         const result = await cloudinary.uploader.upload(req.file.path);
         updateData.profileImageURL = result.secure_url;
         fs.unlinkSync(req.file.path);
-      } else if (req.body.profileImageURL) {
-        updateData.profileImageURL = req.body.profileImageURL;
       }
 
-      const updatedUser = await Pengguna.updateProfile(userId, updateData); // Ensure this is called
+      const updatedUser = await Pengguna.updateProfile(userId, updateData);
+
       if (!updatedUser) {
         return res.status(404).json({ success: false, message: "User not found" });
       }
@@ -64,7 +64,6 @@ const storage = multer.diskStorage({
         user: updatedUser,
       });
     } catch (error) {
-      console.error("Error updating user:", error); // Debug log
       res.status(500).json({
         success: false,
         message: "Failed to update user",

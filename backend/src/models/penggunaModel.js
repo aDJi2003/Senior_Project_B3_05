@@ -90,7 +90,6 @@ const penggunaModel = {
         WHERE ID_pengguna = $${idx}
         RETURNING ID_pengguna, name, email, profile_image
       `;
-      console.log("Executing query:", sqlQuery, "with values:", values); // Debug log
       const { rows } = await query(sqlQuery, values);
       console.log("Query result:", rows); // Debug log
       return rows[0] || null;
