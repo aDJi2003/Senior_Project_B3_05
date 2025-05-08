@@ -2,7 +2,6 @@ const { query } = require("../config/database");
 const { v4: uuidv4 } = require("uuid");
 
 const sampahModel = {
-  // Mengambil semua data sampah
   getAll: async () => {
     try {
       const { rows } = await query("SELECT * FROM Sampah");
@@ -147,6 +146,45 @@ const sampahModel = {
       return { message: "Sampah deleted successfully" };
     } catch (error) {
       console.error("Error deleting sampah:", error);
+      throw error;
+    }
+  },
+
+  getWeeklyWeight: async (userId) => {
+    try {
+      const result = await query(
+        `SELECT SUM(mass_of_weight) AS totalWeight
+         FROM sampah
+         WHERE ID_pengguna = $1 AND DATE(waktu) >= CURRENT_DATE - INTERVAL '7 days'`,
+        [userId]
+      );
+      return result.rows[0]?.totalweight || 0; 
+    } catch (error) {
+      console.error("Error in getWeeklyWeight:", error);
+      throw error;
+    }
+  },
+
+  getTotalWaste: async (userId) => {
+    try {
+      const result = await query(
+        `SELECT 
+           SUM(CASE WHEN type_of_waste = 'organic' THEN mass_of_weight ELSE 0 END) AS organic,
+           SUM(CASE WHEN type_of_waste = 'inorganic' THEN mass_of_weight ELSE 0 END) AS inorganic,
+           SUM(CASE WHEN type_of_waste = 'B3' THEN mass_of_weight ELSE 0 END) AS b3
+         FROM sampah
+         WHERE id_pengguna = $1`,
+        [userId]
+      );
+  
+      const totalWaste = result.rows[0];
+      return {
+        organic: totalWaste.organic || 0,
+        inorganic: totalWaste.inorganic || 0,
+        b3: totalWaste.b3 || 0,
+      };
+    } catch (error) {
+      console.error("Error in getTotalWaste:", error);
       throw error;
     }
   },
