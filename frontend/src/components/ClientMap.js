@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
@@ -6,8 +6,10 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { FaMapMarkerAlt, FaTrash } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import trashLocations from "../../public/data/trashLocations.json";
-import { createSampah } from '../services/sampahServices'; // ganti path sesuai strukturmu
+import { createSampah } from '../services/sampahServices';
 
 const userLocationIcon = L.divIcon({
   html: renderToStaticMarkup(<FaMapMarkerAlt size={30} color="blue" />),
@@ -135,10 +137,10 @@ const ClientMap = () => {
 
       await Promise.all(promises);
 
-      alert('Sampah berhasil dibuang! Silakan cek histori.');
+      toast.success(`Sampah berhasil dibuang ke ${chosenTPS.name}`);
     } catch (error) {
       console.error('Gagal membuang sampah:', error);
-      alert('Gagal membuang sampah. Silakan coba lagi.');
+      toast.error('Gagal membuang sampah. Silakan coba lagi.');
     } finally {
       setShowModal(false);
     }
@@ -158,6 +160,9 @@ const ClientMap = () => {
 
   return (
     <div className="relative w-full h-full">
+      {/* Toast Container */}
+      <ToastContainer />
+
       {/* Form Input */}
       <div className="absolute top-5 left-5 z-1000 bg-white p-4 rounded shadow-md w-72 space-y-2">
         <h4 className="font-semibold text-lg text-black">Masukkan Jumlah Sampah</h4>
@@ -187,7 +192,7 @@ const ClientMap = () => {
         {(organicAmount || anorganicAmount || b3Amount) && filteredTPS.length > 0 && (
           <div className="text-black">
             <h5 className="font-semibold mb-2">TPS yang mendukung:</h5>
-            <ul className="list-disc list-inside max-h-40 overflow-y-auto">
+            <ul className="list-disc list-inside max-h-35 overflow-y-auto">
               {filteredTPS.map((tps) => (
                 <li key={tps.id}>{tps.name}</li>
               ))}
@@ -233,7 +238,7 @@ const ClientMap = () => {
 
       {/* Modal */}
       {showModal && chosenTPS && (
-        <div className="fixed inset-0 flex items-center justify-center z-1050 bg-black bg-opacity-30">
+        <div className="fixed inset-0 flex items-center justify-center z-1050 bg-opacity-30">
           <div className="bg-white p-6 rounded shadow-md w-80">
             <h3 className="text-lg font-semibold mb-4 text-black">Konfirmasi Pembuangan Sampah</h3>
             <p className="text-black mb-4">

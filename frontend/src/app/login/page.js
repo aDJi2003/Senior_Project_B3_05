@@ -6,6 +6,8 @@ import { useAuth } from "@/context/AuthContext";
 import NavbarBackground from "@/components/navbar-background";
 import Footer from "@/components/footer";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const { login } = useAuth();
@@ -29,15 +31,19 @@ export default function Login() {
 
     try {
       await login(email, password);
-      router.push("/dashboard");
+      toast.success("Login berhasil!");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     } catch (err) {
+      let message;
       if (err.message === "Network Error" || err.response?.status >= 500) {
-        setError(
-          "Unable to connect to the server. Please try again later."
-        );
+        message = "Unable to connect to the server. Please try again later.";
       } else {
-        setError("Invalid email or password");
+        message = "Invalid email or password";
       }
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -46,6 +52,16 @@ export default function Login() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100">
       <NavbarBackground />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
+
       <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
         <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
           <h2 className="text-2xl font-bold text-center text-black">Login</h2>

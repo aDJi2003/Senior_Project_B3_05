@@ -6,6 +6,8 @@ import { useAuth } from "@/context/AuthContext";
 import NavbarBackground from "@/components/navbar-background";
 import Footer from "@/components/footer";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
   const { register } = useAuth();
@@ -43,29 +45,39 @@ export default function Register() {
     setSuccess("");
 
     if (!isEmailValid(formData.email)) {
-      setError("Email tidak valid.");
+      const msg = "Email tidak valid.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!isPasswordValid(formData.password)) {
-      setError(
-        "Password harus minimal 8 karakter dan mengandung huruf serta angka."
-      );
+      const msg =
+        "Password harus minimal 8 karakter dan mengandung huruf serta angka.";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Password dan konfirmasi tidak sama!");
+      const msg = "Password dan konfirmasi tidak sama!";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     try {
       setLoading(true);
       await register(formData.name, formData.email, formData.password);
-      setSuccess("Registrasi berhasil! Mengalihkan ke halaman login...");
+      const successMsg = "Registrasi berhasil! Mengalihkan ke halaman login...";
+      setSuccess(successMsg);
+      toast.success(successMsg);
       setTimeout(() => router.push("/login"), 2000);
-    } catch {
-      setError("Registrasi gagal. Silakan coba lagi.");
+    } catch (err) {
+      const msg =
+        err.response?.data?.message || "Registrasi gagal. Silakan coba lagi.";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -110,12 +122,26 @@ export default function Register() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-100">
       <NavbarBackground />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
+
       <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
         <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-2xl font-bold text-center text-black">Register</h2>
+          <h2 className="text-2xl font-bold text-center text-black">
+            Register
+          </h2>
 
           {error && <p className="text-red-600 text-center mt-2">{error}</p>}
-          {success && <p className="text-green-600 text-center mt-2">{success}</p>}
+          {success && (
+            <p className="text-green-600 text-center mt-2">{success}</p>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="mt-6 space-y-4">
@@ -147,7 +173,7 @@ export default function Register() {
             </div>
 
             <p className="text-center text-black mt-4">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <a href="/login" className="text-blue-600 font-semibold italic">
                 Login here
               </a>
