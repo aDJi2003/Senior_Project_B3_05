@@ -7,6 +7,8 @@ import Footer from "@/components/footer";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { FiEdit, FiUpload } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProfilePage = () => {
   const { user, loading, logout, updateProfile } = useAuth();
@@ -30,8 +32,6 @@ const ProfilePage = () => {
     if (user) {
       setName(user.name || "");
       setEmail(user.email || "");
-
-      
       const validImageUrl = user.profile_image?.startsWith("http")
         ? user.profile_image
         : "/profile.png";
@@ -46,7 +46,6 @@ const ProfilePage = () => {
       </div>
     );
   }
-
   if (!user) return null;
 
   const handleFileChange = (e) => {
@@ -58,7 +57,9 @@ const ProfilePage = () => {
   };
 
   const isDirty =
-    name !== (user.name || "") || email !== (user.email || "") || avatarFile !== null;
+    name !== (user.name || "") ||
+    email !== (user.email || "") ||
+    avatarFile !== null;
 
   const handleSave = async () => {
     if (!isDirty) return;
@@ -70,10 +71,15 @@ const ProfilePage = () => {
       if (avatarFile) formData.append("profileImage", avatarFile);
 
       await updateProfile(formData);
+      toast.success("Profile updated successfully");
       setEditingName(false);
       setEditingEmail(false);
     } catch (err) {
       console.error("Failed to update profile", err);
+      toast.error(
+        err.response?.data?.message ||
+          "Failed to update profile. Please try again."
+      );
     } finally {
       setSaving(false);
     }
@@ -82,14 +88,27 @@ const ProfilePage = () => {
   return (
     <>
       <NavbarUser />
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
+
       <div className="flex flex-col items-center justify-center min-h-[80vh] bg-white">
         <div className="bg-[#D4E0A8] rounded-2xl p-10 w-[40%] shadow-lg flex flex-col items-center mt-[18vh] mb-[6vh]">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">Edit Profile</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-6">
+            Edit Profile
+          </h1>
 
           {/* Avatar Preview and Upload */}
           <div className="relative w-[120px] h-[120px] mb-6">
             <Image
-              src={previewUrl || "/profile.png"}
+              src={previewUrl}
               alt="Profile Picture"
               fill
               className="rounded-full object-cover"
@@ -107,7 +126,10 @@ const ProfilePage = () => {
 
           {/* Name Field */}
           <div className="w-full mb-4 relative">
-            <label htmlFor="name" className="block text-gray-700 font-semibold mb-1">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-semibold mb-1"
+            >
               Full Name
             </label>
             <input
@@ -130,7 +152,10 @@ const ProfilePage = () => {
 
           {/* Email Field */}
           <div className="w-full mb-6 relative">
-            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-semibold mb-1"
+            >
               Email
             </label>
             <input

@@ -8,23 +8,23 @@ const ContactPage = () => {
     <div>
       <NavbarBackground />
       
-      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-8 bg-white">
+      <div className="flex flex-col md:flex-row items-center justify-center min-h-screen mt-[10vh] bg-white">
         <div className="w-full md:w-1/2 flex justify-center">
           <Image src="/contact.png" alt="Contact" width={500} height={500} />
         </div>
 
-        <div className="w-full md:w-1/2 mt-8 md:mt-0 md:pl-16">
+        <div className="w-full md:w-1/2 mt-8 md:mt-0 md:px-16">
           <h1 className="text-5xl font-bold text-black mb-6 font-bebas-neue">
             CONTACT US FOR ANY INFORMATION ABOUT TRASHIFY
           </h1>
           <p className="text-gray-700 leading-relaxed">
-            We're here to help! Whether you have questions about how Trashify
+            {`We're here to help! Whether you have questions about how Trashify
             works, need assistance with waste classification, or want to
             collaborate with us in promoting responsible waste management, feel
             free to reach out. Our team is committed to supporting sustainable
             practices and ensuring your experience with Trashify is smooth and
             impactful. Let's create a cleaner future together—one step at a
-            time.
+            time.`}
           </p>
         </div>
       </div>
