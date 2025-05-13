@@ -168,6 +168,11 @@ const ClientMap = () => {
     return messageParts.length > 0 ? messageParts.join(", ") : "0 kg sampah";
   };
 
+  const hasDiscardableWaste =
+    (parseInt(organicAmount, 10) || 0) > 0 ||
+    (parseInt(anorganicAmount, 10) || 0) > 0 ||
+    (parseInt(b3Amount, 10) || 0) > 0;
+
   return (
     <div className="relative w-full h-full">
       {/* Toast Container */}
@@ -252,8 +257,9 @@ const ClientMap = () => {
             {Math.round(nearestTPS.distance)} m dari lokasi Anda.
           </p>
           <button
-            className="bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
-            onClick={() => handleOpenModal(nearestTPS)}
+            className={`bg-blue-500 text-white mt-2 px-3 py-1 rounded focus:outline-none ${!hasDiscardableWaste ? "opacity-50 cursor-not-allowed hover:bg-blue-500": "hover:bg-blue-600"}`}
+            onClick={() => hasDiscardableWaste && handleOpenModal(nearestTPS)}
+            disabled={!hasDiscardableWaste}
           >
             Buang sampah di sini
           </button>
@@ -279,7 +285,11 @@ const ClientMap = () => {
                 Batal
               </button>
               <button
-                className={`bg-blue-500 text-white cursor-pointer px-3 py-1 rounded hover:bg-blue-600 focus:outline-none ${isSubmitting ? "opacity-50 cursor-not-allowed hover:bg-blue-500" : ""}`}
+                className={`bg-blue-500 text-white cursor-pointer px-3 py-1 rounded hover:bg-blue-600 focus:outline-none ${
+                  isSubmitting
+                    ? "opacity-50 cursor-not-allowed hover:bg-blue-500"
+                    : ""
+                }`}
                 onClick={handleConfirmDiscard}
                 disabled={isSubmitting}
               >
