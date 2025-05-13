@@ -16,7 +16,11 @@ export const HistoryProvider = ({ children }) => {
   const fetchHistory = async () => {
     setLoading(true);
     try {
-      const data = await getHistoryByUserId();
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Token tidak ditemukan.");
+      }
+      const data = await getHistoryByUserId(token);
       setHistory(data);
       setError(null);
     } catch (err) {
@@ -32,13 +36,10 @@ export const HistoryProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (token && pathname === "/history") {
+    if (pathname === "/history") {
       fetchHistory();
-    } else {
-      setLoading(false);
-      setError("Belum login.");
     }
-  }, [pathname, token]);
+  }, [pathname]);
 
   return (
     <HistoryContext.Provider
