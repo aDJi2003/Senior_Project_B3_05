@@ -77,7 +77,7 @@ const ClientMap = () => {
   const handleChange = (value, setter) => {
     if (value === "") return setter("");
     const parsedValue = parseInt(value, 10);
-    if (!isNaN(parsedValue) && parsedValue >= 0) {
+    if (!isNaN(parsedValue) && parsedValue > 0) {
       setter(String(parsedValue));
     }
   };
@@ -252,7 +252,7 @@ const ClientMap = () => {
             {Math.round(nearestTPS.distance)} m dari lokasi Anda.
           </p>
           <button
-            className="bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600"
+            className="bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600 cursor-pointer"
             onClick={() => handleOpenModal(nearestTPS)}
           >
             Buang sampah di sini
@@ -273,13 +273,13 @@ const ClientMap = () => {
             </p>
             <div className="flex justify-end space-x-2">
               <button
-                className="bg-gray-300 text-black px-3 py-1 rounded"
+                className="bg-gray-300 text-black px-3 py-1 rounded cursor-pointer hover:bg-gray-400"
                 onClick={() => setShowModal(false)}
               >
                 Batal
               </button>
               <button
-                className={`bg-blue-500 text-white mt-2 px-3 py-1 rounded hover:bg-blue-600 focus:outline-none ${isSubmitting ? "opacity-50 cursor-not-allowed hover:bg-blue-500" : ""}`}
+                className={`bg-blue-500 text-white cursor-pointer px-3 py-1 rounded hover:bg-blue-600 focus:outline-none ${isSubmitting ? "opacity-50 cursor-not-allowed hover:bg-blue-500" : ""}`}
                 onClick={handleConfirmDiscard}
                 disabled={isSubmitting}
               >
