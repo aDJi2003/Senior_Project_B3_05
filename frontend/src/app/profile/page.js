@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import NavbarUser from "@/components/navbar-user";
 import Footer from "@/components/footer";
 import { useAuth } from "@/context/AuthContext";
@@ -8,10 +9,10 @@ import { useEffect, useState } from "react";
 import { FiEdit, FiUpload } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProtectedRoute from "@/components/ProtectedRoute";
 
 const ProfilePage = () => {
-  const { user, logout, updateProfile } = useAuth();
+  const { user, loading, logout, updateProfile } = useAuth();
+  const router = useRouter();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,6 +21,12 @@ const ProfilePage = () => {
   const [editingName, setEditingName] = useState(false);
   const [editingEmail, setEditingEmail] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [loading, user, router]);
 
   useEffect(() => {
     if (user) {
@@ -31,6 +38,15 @@ const ProfilePage = () => {
       setPreviewUrl(validImageUrl);
     }
   }, [user]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+  if (!user) return null;
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -70,7 +86,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <ProtectedRoute>
+    <>
       <NavbarUser />
 
       {/* Toast Container */}
@@ -181,7 +197,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <Footer />
-    </ProtectedRoute>
+    </>
   );
 };
 
