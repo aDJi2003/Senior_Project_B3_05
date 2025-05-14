@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import NavbarUser from '@/components/navbar-user';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const ClientMap = dynamic(() => import('@/components/ClientMap'), {
   ssr: false,
@@ -29,12 +30,14 @@ const Page = () => {
   }
 
   return (
+    <ProtectedRoute>
     <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
       <NavbarUser />
       <div className="w-full h-[87vh] mt-[13vh]">
         <ClientMap />
       </div>
     </div>
+    </ProtectedRoute>
   );
 };
 
