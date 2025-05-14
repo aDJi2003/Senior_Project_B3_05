@@ -1,5 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
+export const prerender = false;
 
 import Image from "next/image";
 import NavbarUser from "@/components/navbar-user";
