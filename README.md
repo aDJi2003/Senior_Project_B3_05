@@ -38,4 +38,31 @@ Trashify adalah aplikasi manajemen limbah digital berbasis web yang memanfaatkan
 3. Commit perubahan: `git commit -m "feat: tambah fitur XYZ`
 4. Push dan buka pull request
 
+## 🎮 Penggunaan
+1. Menjalankan Backend (Express.js)
+  ```bash
+  cd backend
+   npm run dev
+  ```
+  Program akan berjalan pada port 8080 dengan url `http://localhost:8080`
+  
+2. Menjalankan Frontend (React + Next.js)
+  ```bash
+  cd backend
+   npm run dev
+```
+Program akan berjalan pada port 3000 dengan url `http://localhost:3000`
+
+## 📡 API Endpoints
+
+Trashify menyediakan API RESTful yang komprehensif untuk mengakses fitur-fitur aplikasi secara programatis. Berikut adalah endpoint yang tersedia:
+
+| Method | URL | Deskripsi |
+|--------|-----|-----------|
+| POST | `/api/pengguna/login` | Login user |
+| POST | `/api/pengguna/register` | Register user |
+| POST | `/api/sampah/create` | Upload gambar dan mengirim sampah |
+| GET | `/api/sampah/total-waste?userId` | Lihat total sampah berdasarkan user Id |
+| GET | `/api/sampah/weekly-weight?userId` | Mendapatkan sampah dalam satu minggu |
+
 **Trashify — Bersama kita pilah, demi bumi yang lebih bersih** 🌱🌍
