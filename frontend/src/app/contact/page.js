@@ -4,6 +4,7 @@ import Image from "next/image";
 import NavbarBackground from "@/components/navbar-background";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
+import ChatWidget from "@/components/ChatWidget";
 
 const heroVariants = {
   hiddenLeft: { opacity: 0, x: -100 },
@@ -114,6 +115,7 @@ const ContactPage = () => {
       </section>
 
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

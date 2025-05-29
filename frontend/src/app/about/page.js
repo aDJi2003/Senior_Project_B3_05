@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
+import ChatWidget from "@/components/ChatWidget";
 
 const aboutVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -166,6 +167,7 @@ const AboutUs = () => {
       </div>
 
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

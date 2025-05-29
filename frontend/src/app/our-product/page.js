@@ -21,7 +21,7 @@ const productVariants = {
 
 export default function ProductsPage() {
   return (
-      <div className="font-poppins">
+      <div className="font-poppins min-h-screen bg-white">
         <NavbarBackground />
 
         <section className="pt-32 py-20 bg-white text-center text-black">
