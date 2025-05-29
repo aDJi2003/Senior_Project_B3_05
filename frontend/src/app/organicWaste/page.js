@@ -65,18 +65,18 @@ const Page = () => {
         <div className="flex flex-col mt-[12vh] mx-auto max-w-5xl p-6">
           <div className="flex items-center justify-between mb-8">
             <span
-              className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
+              className="text-green-700 text-sm sm:text-base md:text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
               onClick={() => router.push("/inorganicWaste")}
             >
               <FaAngleLeft className="mr-1" /> Inorganic Waste
             </span>
 
-            <h2 className="text-black text-4xl font-bold text-center">
+            <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-center">
               Organic Waste
             </h2>
 
             <span
-              className="text-green-700 text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
+              className="text-green-700 text-sm sm:text-base md:text-lg font-light cursor-pointer hover:underline hover:text-green-900 transition flex items-center"
               onClick={() => router.push("/b3Waste")}
             >
               B3 Waste <FaAngleRight className="ml-1" />

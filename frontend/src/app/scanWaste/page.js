@@ -63,23 +63,21 @@ const Page = () => {
       <div className="min-h-screen flex flex-col justify-between bg-gray-100 font-poppins">
         <NavbarUser />
         <div className="flex flex-col items-center mt-[18vh] mb-[5vh]">
-          <div className="w-[60vw] px-[4vw] py-[5vh] rounded-3xl bg-[#A9C46C80] flex flex-col gap-6 items-center">
-            <h2 className="text-4xl font-bold text-black">Scan Waste</h2>
-            <p className="text-xl text-black text-center">
+          <div className="w-[80vw] md:w-[70vw] lg:w-[60vw] px-[4vw] py-[5vh] rounded-3xl bg-[#A9C46C80] flex flex-col gap-6 items-center">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black">
+              Scan Waste
+            </h2>
+            <p className="text-base md:text-xl text-black text-center">
               Understand waste types and dispose of them properly to protect our
               environment. Scan to recognize, sort to recycle!
             </p>
             <button
-              className="w-[20vw] rounded-xl bg-[#5D8736] px-4 py-3 flex items-center justify-center gap-3 cursor-pointer"
+              className="w-[40vw] sm:w-[30vw] lg:w-[20vw] rounded-xl bg-[#5D8736] px-2 sm:px-3 lg:px-4 py-3 flex items-center justify-center gap-3 cursor-pointer"
               onClick={handleButtonClick}
             >
-              <p className="text-xl font-bold text-black">Upload Files</p>
-              <Image
-                src="/upload_file.png"
-                alt="upload_files_image"
-                width={30}
-                height={30}
-              />
+              <p className="text-sm sm:text-base md:text-xl font-bold text-black">
+                Upload Files
+              </p>
             </button>
             <input
               type="file"
@@ -99,16 +97,16 @@ const Page = () => {
                 />
                 {predictions.length > 0 && (
                   <>
-                    <div className="mt-2 text-xl font-bold text-black">
+                    <div className="mt-2 text-sm sm:text-base md:text-xl text-black">
                       {predictions.map((pred, idx) => (
                         <p key={idx}>
-                          {pred.className}:{" "}
+                          <span className="font-bold">{pred.className}</span>:{" "}
                           {(pred.probability * 100).toFixed(2)}%
                         </p>
                       ))}
                     </div>
                     <button
-                      className="mt-4 w-[20vw] rounded-xl bg-[#5D8736] px-4 py-3 text-xl font-bold text-black cursor-pointer"
+                      className="mt-4 w-[40vw] sm:w-[30vw] lg:w-[20vw] rounded-xl bg-[#5D8736] px-4 py-3 text-sm sm:text-base md:text-xl font-bold text-black cursor-pointer"
                       onClick={handleBuangSampah}
                     >
                       Buang Sampah
