@@ -6,7 +6,6 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <ProtectedRoute>
       <div className="relative min-h-screen w-full overflow-x-hidden bg-white">
         <div className="absolute top-0 left-0 w-full z-0">
           <Image
@@ -97,7 +96,6 @@ const AboutUs = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
   );
 };
 

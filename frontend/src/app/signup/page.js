@@ -133,8 +133,8 @@ export default function Register() {
       />
 
       <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
-        <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-2xl font-bold text-center text-black">
+        <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-lg w-full mx-[5vw] sm:mx-0">
+          <h2 className="text-xl md:text-2xl xl:text-3xl font-bold text-center text-black">
             Register
           </h2>
 
@@ -155,7 +155,7 @@ export default function Register() {
                       name={field.name}
                       value={formData[field.name]}
                       onChange={handleChange}
-                      className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
+                      className="w-full p-2 py-3 sm:p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                       placeholder={field.placeholder}
                       required={field.required}
                     />
@@ -172,7 +172,7 @@ export default function Register() {
               ))}
             </div>
 
-            <p className="text-center text-black mt-4">
+            <p className="text-center text-black mt-4 text-sm md:text-base">
               Already have an account?{" "}
               <a href="/login" className="text-blue-600 font-semibold italic">
                 Login here
@@ -181,7 +181,7 @@ export default function Register() {
 
             <button
               type="submit"
-              className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer disabled:opacity-50"
+              className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer disabled:opacity-50 text-sm md:text-base"
               disabled={loading}
             >
               {loading ? "Registering..." : "Register"}

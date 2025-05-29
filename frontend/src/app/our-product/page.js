@@ -22,7 +22,6 @@ const productVariants = {
 
 export default function ProductsPage() {
   return (
-    <ProtectedRoute>
       <div className="font-poppins">
         <NavbarBackground />
 
@@ -107,6 +106,5 @@ export default function ProductsPage() {
         <Footer />
         <ChatWidget />
       </div>
-    </ProtectedRoute>
   );
 }

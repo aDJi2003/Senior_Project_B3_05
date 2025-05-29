@@ -6,7 +6,6 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 
 const ContactPage = () => {
   return (
-    <ProtectedRoute>
       <div className="font-poppins">
         <NavbarBackground />
 
@@ -75,7 +74,6 @@ const ContactPage = () => {
         </div>
         <Footer />
       </div>
-    </ProtectedRoute>
   );
 };
 

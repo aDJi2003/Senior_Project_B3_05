@@ -63,18 +63,18 @@ export default function Login() {
       />
 
       <div className="flex flex-1 justify-center items-center mt-[18vh] mb-[6vh]">
-        <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full">
-          <h2 className="text-2xl font-bold text-center text-black">Login</h2>
+        <div className="bg-[#D4E0A8] p-10 rounded-xl shadow-lg max-w-md w-full mx-[5vw] sm:mx-0">
+          <h2 className="text-xl md:text-2xl xl:text-3xl font-bold text-center text-black">Login</h2>
 
           {error && <p className="text-red-500 text-center mt-2">{error}</p>}
 
           <form onSubmit={handleLogin} className="mt-6">
             <div>
-              <label className="block text-black">Email</label>
+              <label className="block text-black text-sm md:text-base">Email</label>
               <input
                 ref={emailInputRef}
                 type="email"
-                className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
+                className="w-full p-2 py-3 sm:p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -83,10 +83,10 @@ export default function Login() {
             </div>
 
             <div className="mt-4 relative">
-              <label className="block text-black">Password</label>
+              <label className="block text-black text-sm md:text-base">Password</label>
               <input
                 type={showPassword ? "text" : "password"}
-                className="w-full p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
+                className="w-full p-2 py-3 sm:p-3 mt-2 border rounded-lg focus:outline-none bg-white text-black"
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -100,7 +100,7 @@ export default function Login() {
               </span>
             </div>
 
-            <p className="text-center text-black mt-4">
+            <p className="text-center text-black mt-4 text-sm md:text-base">
               {"Don't have an account yet? "}
               <a
                 href="/signup"
@@ -112,7 +112,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer disabled:opacity-50"
+              className="w-full mt-6 bg-[#F5F9D6] py-3 rounded-lg text-black font-bold hover:bg-[#E8F0C8] transition cursor-pointer disabled:opacity-50 text-sm md:text-base"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}
