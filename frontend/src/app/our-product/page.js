@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import NavbarBackground from "@/components/navbar-background";
 import Footer from "@/components/footer";
 import ChatWidget from "@/components/ChatWidget";
-import ProtectedRoute from "@/components/ProtectedRoute";
 
 const productVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -26,7 +25,7 @@ export default function ProductsPage() {
         <NavbarBackground />
 
         <section className="pt-32 py-20 bg-white text-center text-black">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 md:mb-16">
             Our Products & Services
           </h2>
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
@@ -65,8 +64,8 @@ export default function ProductsPage() {
               <Image
                 src="/product2.png"
                 alt="Waste Tracking & Analytics Dashboard"
-                width={251}
-                height={251}
+                width={250}
+                height={250}
               />
               <h3 className="text-xl font-semibold mt-4">
                 Waste Tracking & Analytics Dashboard
